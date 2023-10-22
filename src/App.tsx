@@ -26,7 +26,7 @@ function App() {
     return (
       <div className="grid grid-cols-4 grid-rows-6 h-screen gap-2 overflow-hidden p-2">
         <Sidebar navList={navList} currentUrl={currentUrl}/>
-        <div className="flex flex-col h-screen relative col-span-3 row-span-6 overflow-scroll rounded-lg bg-clr-background-base-two">
+        <div className="flex flex-col relative col-span-3 row-span-6 overflow-scroll rounded-lg bg-clr-background-base-two">
           {/* Gradient */}
           {/* <div className=" absolute h-[50vh] bg-gradient-to-b from-clr-text-primary via-clr-background-highlight-three to-clr-background-base-two w-full z-0"></div> */}
           <Topbar />
