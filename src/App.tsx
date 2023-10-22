@@ -1,60 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-import InputText from './components/shares/inputs/Text';
-import { FormProvider, useForm } from 'react-hook-form';
+import { Route, Routes, useLocation} from "react-router-dom";
+import { ICONS_DIR } from "./config/config.ts";
+import RegisterPage from "./pages/Registerpage.tsx";
+import Loginpage from "./pages/Loginpage.tsx";
+import Episodespage from "./pages/Episodespage.tsx";
+import Sidebar from "./components/shares/navbars/Sidebar.tsx";
+import Topbar from "./components/shares/navbars/Topbar.tsx";
+import Podcastspage from "./pages/Podcastspage.tsx";
+import CreateEpisodepage from "./pages/CreateEpisodepage.tsx";
+import CreatePodcastPage from "./pages/CreatePodcastpage.tsx";
 
 function App() {
-  const [count, setCount] = useState(0)
-  const methods = useForm({
-    mode: "onChange",
-    delayError: 500
-  });
+
+  const currentUrl= useLocation().pathname
+  
+  const isAuth = true;
+
+  const navList = { // url, [display, iconUrl]
+    '/': ['Your Episodes', ICONS_DIR + 'episode.svg'],
+    '/podcasts': ['Your Podcasts', ICONS_DIR + 'podcast.svg'],
+    '/create-episode' : ['Create Episode', ICONS_DIR + 'add-circle.svg'],
+    '/create-podcast' : ['Create Podcast', ICONS_DIR + 'add-circle.svg'],
+  }
+
+  if (isAuth) {
+    return (
+      <div className="grid grid-cols-4 grid-rows-6 h-screen gap-2 overflow-hidden p-2">
+        <Sidebar navList={navList} currentUrl={currentUrl}/>
+        <div className="flex flex-col h-screen relative col-span-3 row-span-6 overflow-scroll rounded-lg bg-clr-background-base-two">
+          {/* Gradient */}
+          {/* <div className=" absolute h-[50vh] bg-gradient-to-b from-clr-text-primary via-clr-background-highlight-three to-clr-background-base-two w-full z-0"></div> */}
+          <Topbar />
+          <div className="flex-1 z-[1] py-0 px-6">
+            <Routes>
+              <Route path="/" element={<Episodespage />} />
+              <Route path="/podcasts" element={<Podcastspage />} />
+              <Route path="/create-episode" element={<CreateEpisodepage />} />
+              <Route path="/create-podcast" element={<CreatePodcastPage />} />
+              <Route path="/*"/>
+            </Routes>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <FormProvider {...methods}>
-        <form
-        // onSubmit={}
-        >
-          <InputText
-            id="name"
-            label="Name"
-            validation={{
-              required: "Name must be filled",
-              pattern: {
-                value: /^[A-Za-z\d\s]{6,}$/, // This regex enforces a minimum of 6 characters, including letters, digits, and spaces
-                message: "Name must be at least 6 characters long",
-              },
-            }}
-            placeholder="Enter your name"
-          />
-        </form>
-      </FormProvider>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="flex flex-col h-screen overflow-x-hidden">
+      <Routes>
+        <Route path="/" element={<Loginpage />} />
+        <Route path="/register" element={<RegisterPage />} />
+      </Routes>
+    </div>
   );
 }
 
-export default App
+export default App;
