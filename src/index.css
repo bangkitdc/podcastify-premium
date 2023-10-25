@@ -96,3 +96,60 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.01rem;
+  margin: 0;
+}
+
+p {
+  font-weight: 500;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  width: 100%;
+}
+
+td, th {
+  color: var(--clr-text-secondary);
+  font-weight: 500;
+  font-size: 14px;
+  padding-left: 15px;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+td {
+  font-weight: 300;
+}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid hsla(0,0%,100%,.1);
+}
+
+td {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #808080;
+}
+
+/* On hover, change the background-color and opacity of the thumb */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #b3b3b3;
+}
