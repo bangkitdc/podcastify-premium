@@ -1,6 +1,6 @@
 import AddButton from "../components/shares/buttons/AddButton";
 import BaseInputText from "../components/shares/inputs/BaseInputText";
-import BaseUploader from "../components/shares/uploads/BaseUploader";
+import BaseFileUploader from "../components/shares/uploads/BaseFileUploader";
 import useFile from "../hooks/useFile";
 import useInput from "../hooks/useInput";
 
@@ -28,17 +28,17 @@ function CreateEpisodepage() {
         value={description}
         setValue={setDescription}
       />
-      <BaseUploader
+      <BaseFileUploader
         id="episode-poster-upload"
         type="image"
-        label="Upload a poster file :"
+        label="Poster File :"
         value={imageFile}
         setValue={setImageFile}
       />
-      <BaseUploader
+      <BaseFileUploader
         id="episode-poster-upload"
         type="audio"
-        label="Upload an audio file :"
+        label="Audio File :"
         value={audioFile}
         setValue={setAudioFile}
       />
