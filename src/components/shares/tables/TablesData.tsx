@@ -1,33 +1,49 @@
-import { useNavigate } from "react-router-dom"
-
 function TablesData({
   data,
-  page,
+  onClickManage1,
+  onClickManage2,
+  manageOption,
+  manageText,
 }: {
   data: string[][];
-  page?: string
+  manageOption: boolean;
+  manageText?: string[];
+  onClickManage1: (id?:string) => void;
+  onClickManage2: () => void;
 }) {
-  const navigate = useNavigate()
-
-  const handleRowClick = (url: string) => {
-    navigate(url)
-  }
   return (
     <>
       <tr>
         <td colSpan={5}></td>
       </tr>
       {data.map((d, index) => (
-          <tr onClick={() => handleRowClick("/" + page + "/" + index)} className=" cursor-pointer hover:bg-clr-background-base-two">
-            <td>{d[0]}</td>
-            <td>
-              <img src="" alt="" />
-              <div>
-                <p>{d[1]}</p>
-              </div>
-            </td>
-            <td>{d[2]}</td>
-          </tr>
+        <tr className=" hover:bg-clr-background-highlight-two">
+          <td>{index+1}</td>
+          <td>
+            <img src="" alt="" />
+            <div>
+              <p>{d[0]}</p>
+            </div>
+          </td>
+          <td>
+            <p>{d[1]}</p>
+          </td>
+          {manageOption && manageText ? <td className="flex gap-2">
+            <p
+              className="hover:underline cursor-pointer font-thin"
+              onClick={() => onClickManage1(d[2])}
+            >
+              {manageText[0]}
+            </p>
+            <p>|</p>
+            <p
+              className="hover:underline cursor-pointer font-thin"
+              onClick={() => onClickManage2}
+            >
+              {manageText[1]}
+            </p>
+          </td> : null}
+        </tr>
       ))}
     </>
   );

@@ -1,9 +1,9 @@
 function TablesHeader({headers, percentage} : {headers: string[], percentage: number[]}) {
   return (
     <tr>
-      <th className="text-sm">#</th>
+      <th className="w-[5%]" style={{width: "5%"}}>#</th>
       {headers.map((h, index) => (
-        <th className={"width='" + percentage[index] + "%'"}>{h}</th>
+        <th style={{width: percentage[index] + "%"}} key={index}>{h}</th>
       ))}
     </tr>
   );
