@@ -19,7 +19,7 @@ export default function BaseInputText({
 }: BaseInputType) {
   return (
     <div className="flex flex-col">
-      <label className=" text-3xl" htmlFor={id}>{label}</label>
+      <label className=" text-2xl" htmlFor={id}>{label}</label>
       <input
         id={id}
         type="text"
@@ -27,7 +27,7 @@ export default function BaseInputText({
         value={value}
         onChange={setValue}
         required={is_require}
-        className=" w-1/2 rounded-3xl text-clr-background-base-one py-2 px-2 outline-none border-solid border-2 text-base bg-clr-text-primary"
+        className=" w-1/2 rounded-3xl text-clr-background-base-one py-1 px-1 outline-none border-solid border-2 text-base bg-clr-text-primary"
       />
     </div>
   );
