@@ -1,5 +1,6 @@
-import { IMAGES_DIR } from "../../../config/config";
-function PodcastCard({ img_url }: { img_url: string }) {
+import { ICONS_DIR, IMAGES_DIR } from "../../../config/config";
+function PodcastCard({podcastData, img_url, handleEditModal }: {podcastData: string[]; img_url: string, handleEditModal : (id?: string) => void }) {
+  
   return (
     <div className=" bg-clr-background-card p-4 rounded-lg h-fit shadow cursor-pointer flex flex-col hover:bg-clr-background-highlight-two">
       <div className="w-full pb-[100%] relative">
@@ -13,9 +14,11 @@ function PodcastCard({ img_url }: { img_url: string }) {
         )}
       </div>
 
-      <p>Title</p>
+      <p className=" overflow-hidden whitespace-nowrap text-ellipsis">
+        {podcastData[0]}
+      </p>
       <div>
-        <p>Creator</p>
+        <img onClick={() => handleEditModal(podcastData[2])} src={ICONS_DIR + "edit.svg"} alt="" />
       </div>
     </div>
   );
