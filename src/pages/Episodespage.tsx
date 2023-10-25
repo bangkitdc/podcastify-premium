@@ -19,7 +19,8 @@ function Episodespage() {
     setIsEditModalActive(!isEditModalActive);
   };
   const [isDeleteModalActive, setIsDeleteModalActive] = useState(false);
-  const handleDeleteModal = () => {
+  const handleDeleteModal = (id?: string) => {
+    id ? setEpisodeId(id) : setEpisodeId("");
     setIsDeleteModalActive(!isDeleteModalActive);
   };
 
@@ -50,6 +51,7 @@ function Episodespage() {
         isEditModalActive={isEditModalActive}
         isDeleteModalActive={isDeleteModalActive}
         handleEditModal={handleEditModal}
+        handleDeleteModal={handleDeleteModal}
         data={selectedData}
       />
     </>

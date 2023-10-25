@@ -9,7 +9,7 @@ function TablesData({
   manageOption: boolean;
   manageText?: string[];
   onClickManage1: (id?:string) => void;
-  onClickManage2: () => void;
+  onClickManage2: (id?:string) => void;
 }) {
   return (
     <>
@@ -38,7 +38,7 @@ function TablesData({
             <p>|</p>
             <p
               className="hover:underline cursor-pointer font-thin"
-              onClick={() => onClickManage2}
+              onClick={() => onClickManage2(d[2])}
             >
               {manageText[1]}
             </p>

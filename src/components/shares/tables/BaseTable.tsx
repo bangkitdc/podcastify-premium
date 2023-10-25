@@ -16,7 +16,7 @@ export default function BaseTable({
   manageOption: boolean;
   manageText: string[];
   onClickManage1: (id?: string) => void;
-  onClickManage2: () => void;
+  onClickManage2: (id?:string) => void;
 }) {
   return (
     <>

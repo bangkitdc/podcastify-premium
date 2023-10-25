@@ -3,18 +3,21 @@ import BaseFileUploader from "../../shares/uploads/BaseFileUploader";
 import useInput from "../../../hooks/useInput";
 import useFile from "../../../hooks/useFile";
 import BaseModal from "../../shares/modals/BaseModal";
+import ConfirmationModal from "../../shares/modals/ConfirmationModal";
 
 export default function ManageEpisodeModals({
   episodeId,
   isEditModalActive,
   isDeleteModalActive,
   handleEditModal,
+  handleDeleteModal,
   data,
 }: {
   episodeId: string;
   isEditModalActive: boolean;
   isDeleteModalActive: boolean;
   handleEditModal: () => void;
+  handleDeleteModal: () => void;
   data: string[];
 }) {
   const [title, setTitle] = useInput("");
@@ -82,7 +85,8 @@ export default function ManageEpisodeModals({
         active={isEditModalActive}
         modalContent={editEpisodeForm}
       />
-      <BaseModal id="episode-list-delete-modal" active={isDeleteModalActive} />
+      {/* <BaseModal id="episode-list-delete-modal" active={isDeleteModalActive} /> */}
+      <ConfirmationModal heading="Delete Episode" text1="This will delete" data={data[0]} text2="from your library" confirmText="Delete" active={isDeleteModalActive} handleActive={handleDeleteModal}/>
     </>
   );
 }
