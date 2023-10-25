@@ -7,7 +7,7 @@ import Sidebar from "./components/shares/navbars/Sidebar.tsx";
 import Topbar from "./components/shares/navbars/Topbar.tsx";
 import Podcastspage from "./pages/Podcastspage.tsx";
 import CreateEpisodepage from "./pages/CreateEpisodepage.tsx";
-import CreatePodcastPage from "./pages/CreatePodcastpage.tsx";
+import CreatePodcastpage from "./pages/CreatePodcastpage.tsx";
 
 function App() {
 
@@ -33,10 +33,12 @@ function App() {
           <div className="flex-1 z-[1] py-0 px-6">
             <Routes>
               <Route path="/" element={<Episodespage />} />
+              <Route path="/episodes" element={<Episodespage />} />
               <Route path="/podcasts" element={<Podcastspage />} />
               <Route path="/create-episode" element={<CreateEpisodepage />} />
-              <Route path="/create-podcast" element={<CreatePodcastPage />} />
+              <Route path="/create-podcast" element={<CreatePodcastpage />} />
               <Route path="/*"/>
+              {/* TODO: Error page */}
             </Routes>
           </div>
         </div>
