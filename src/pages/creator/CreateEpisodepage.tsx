@@ -1,8 +1,8 @@
-import AddButton from "../components/shares/buttons/AddButton";
-import BaseInputText from "../components/shares/inputs/BaseInputText";
-import BaseFileUploader from "../components/shares/uploads/BaseFileUploader";
-import useFile from "../hooks/useFile";
-import useInput from "../hooks/useInput";
+import AddButton from "../../components/shares/buttons/AddButton";
+import BaseInputText from "../../components/shares/inputs/BaseInputText";
+import BaseFileUploader from "../../components/shares/uploads/BaseFileUploader";
+import useFile from "../../hooks/useFile";
+import useInput from "../../hooks/useInput";
 
 function CreateEpisodepage() {
   const [title, setTitle] = useInput("");

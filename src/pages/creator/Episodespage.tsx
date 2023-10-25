@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import Pagination from "../components/shares/paginations/Pagination";
-import BaseTable from "../components/shares/tables/BaseTable";
-import ManageEpisodeModals from "../components/privates/episode/ManageEpisodeModals";
+import Pagination from "../../components/shares/paginations/Pagination";
+import BaseTable from "../../components/shares/tables/BaseTable";
+import ManageEpisodeModals from "../../components/privates/episode/ManageEpisodeModals";
 
 function Episodespage() {
   const [isEditModalActive, setIsEditModalActive] = useState(false);
   const [episodeId, setEpisodeId] = useState("");
-  const [selectedData, setSelectedData] = useState(['']);
+  const [selectedData, setSelectedData] = useState([""]);
 
   const data = [
     ["Episode1", "Podcast1", "id1"],
@@ -28,7 +28,7 @@ function Episodespage() {
     setSelectedData(
       data.filter((d) => d[2] === episodeId).flatMap((d) => [d[0], d[1], d[2]])
     );
-  }, [episodeId])  
+  }, [episodeId]);
 
   const headers = ["Title", "Podcast", "Manage"];
   const percentage = [50, 30, 20];
