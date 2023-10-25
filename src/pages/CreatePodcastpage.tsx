@@ -12,6 +12,9 @@ function CreatePodcastPage() {
 
   const categories = ["Comedy", "Horror", "Deep Talk", "18+"];
   return (
+    <>
+    <h1>Create a Podcast</h1>
+    <br />
     <form className="flex flex-col gap-3">
       <BaseInputText
         id="episode-title"
@@ -38,9 +41,10 @@ function CreatePodcastPage() {
         setValue={setImageFile}
       />
       <div className="flex justify-end mt-3">
-        <AddButton text="Add Episode" />
+        <AddButton text="Create Podcast" />
       </div>
     </form>
+    </>
   );
 }
 

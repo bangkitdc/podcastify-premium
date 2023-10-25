@@ -35,7 +35,7 @@ function Episodespage() {
 
   return (
     <>
-      <h1>Episodes By You</h1>
+      <h1>Episodes Made By You</h1>
       <BaseTable
         headers={headers}
         percentage={percentage}
