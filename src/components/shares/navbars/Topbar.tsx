@@ -2,7 +2,7 @@ import { ICONS_DIR, IMAGES_DIR } from "../../../config/config";
 
 function Topbar() {
   return (
-    <div className=" sticky top-0 col-span-3 flex justify-end py-4 px-6 items-center z-[2]">
+    <div className=" sticky top-0 col-span-3 flex justify-end py-4 px-6 items-center">
       <div className="items-center font-medium text-base cursor-pointer">
         <button className="gap-2 bg-clr-background-base-one cursor-pointer float-right rounded-full border-none text-clr-text-primary items-center inline-flex text-base h-8 py-0 px-1 max-w-[182.5]">
           <img
