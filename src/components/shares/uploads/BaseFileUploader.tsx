@@ -16,7 +16,7 @@ export default function BaseFileUploader({
 }) {
   return (
     <div className="relative px-0 flex flex-col">
-      <label htmlFor={id} className="text-2xl">
+      <label className="text-2xl">
         {label}
       </label>
       <input type="file" id={id} className=" hidden" onChange={setValue} />

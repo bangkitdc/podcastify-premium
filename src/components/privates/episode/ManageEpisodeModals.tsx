@@ -84,9 +84,18 @@ export default function ManageEpisodeModals({
         id="episode-list-edit-modal"
         active={isEditModalActive}
         modalContent={editEpisodeForm}
+        onClose={() => handleEditModal()}
       />
       {/* <BaseModal id="episode-list-delete-modal" active={isDeleteModalActive} /> */}
-      <ConfirmationModal heading="Delete Episode" text1="This will delete" data={data[0]} text2="from your library" confirmText="Delete" active={isDeleteModalActive} handleActive={handleDeleteModal}/>
+      <ConfirmationModal
+        heading="Delete Episode"
+        text1="This will delete"
+        data={data[0]}
+        text2="from your library"
+        confirmText="Delete"
+        active={isDeleteModalActive}
+        handleActive={handleDeleteModal}
+      />
     </>
   );
 }

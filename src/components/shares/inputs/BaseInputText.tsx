@@ -19,7 +19,7 @@ export default function BaseInputText({
 }: BaseInputType) {
   return (
     <div className="flex flex-col">
-      <label className=" text-2xl" htmlFor={id}>{label}</label>
+      <label className=" text-2xl">{label}</label>
       <input
         id={id}
         type="text"
