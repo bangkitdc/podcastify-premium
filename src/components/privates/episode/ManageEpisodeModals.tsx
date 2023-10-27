@@ -1,5 +1,5 @@
 import BaseInputText from "../../shares/inputs/BaseInputText";
-import BaseFileUploader from "../../shares/uploads/BaseFileUploader";
+import BaseFileUploader from "../../shares/uploads/Base";
 import useInput from "../../../hooks/useInput";
 import useFile from "../../../hooks/useFile";
 import BaseModal from "../../shares/modals/Base";
