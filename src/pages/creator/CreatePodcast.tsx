@@ -5,7 +5,7 @@ import BaseUploader from "../../components/shares/uploads/BaseFileUploader";
 import useFile from "../../hooks/useFile";
 import useInput from "../../hooks/useInput";
 
-function CreatePodcastPage() {
+export default function CreatePodcast() {
   const [title, setTitle] = useInput("");
   const [description, setDescription] = useInput("");
   const [imageFile, setImageFile] = useFile(null);
@@ -47,5 +47,3 @@ function CreatePodcastPage() {
     </>
   );
 }
-
-export default CreatePodcastPage;

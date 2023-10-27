@@ -1,7 +1,7 @@
 // import { createRoot } from "react-dom/client";
 import { IMAGES_DIR } from "../config/config";
 
-export default function Error404page() {
+export default function Error404() {
   const errorpage = (
     <div className="h-screen flex justify-center items-center flex-col">
       <div className="mb-8">
