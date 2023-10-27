@@ -17,7 +17,7 @@ export default function ListEpisode() {
 
   useEffect(() => {
     setSelectedData(
-      data.filter((d) => d[2] === episodeIdDelete || episodeIdEdit).flatMap((d) => [d[0], d[1], d[2]])
+      data.filter((d) => d[2] === episodeIdDelete || d[2] === episodeIdEdit).flatMap((d) => [d[0], d[1], d[2]])
     );
   }, [episodeIdEdit, episodeIdDelete]);
 

@@ -5,7 +5,8 @@ import { useState, useEffect } from "react";
 import useManageModal from "../../../hooks/useManageModal";
 
 export default function ListPodcast() {
-  const [isManageModalActive, podcastId, handleManageModal] = useManageModal();
+  const [ isEditModalActive, podcastIdEdit, handleEditModal] = useManageModal()
+  const [ isDeleteModalActive, podcastIdDelete, handleDeleteModal] = useManageModal()
   const [selectedData, setSelectedData] = useState([""]);
 
   const data = [
@@ -16,11 +17,9 @@ export default function ListPodcast() {
 
   useEffect(() => {
     setSelectedData(
-      data.filter((d) => d[2] === podcastId).flatMap((d) => [d[0], d[1], d[2]])
+      data.filter((d) => d[2] === podcastIdEdit || d[2] === podcastIdDelete).flatMap((d) => [d[0], d[1], d[2]])
     );
-  }, [podcastId]);
-
-  console.log(isManageModalActive);
+  }, [podcastIdEdit, podcastIdDelete]);
 
   return (
     <>
@@ -29,15 +28,17 @@ export default function ListPodcast() {
           <PodcastCard
             podcastData={d}
             img_url=""
-            handleManageModal={handleManageModal}
+            handleEditModal={handleEditModal}
+            handleDeleteModal={handleDeleteModal}
           />
         ))}
       </div>
       <Pagination currentPage={1} totalPages={10} />
       <ManagePodcastModals
-        podcastId={podcastId}
-        isEditModalActive={isManageModalActive}
-        handleManageModal={handleManageModal}
+        podcastId={podcastIdEdit || podcastIdDelete}
+        isEditModalActive={isEditModalActive}
+        isDeleteModalActive={isDeleteModalActive}
+        handleManageModal={handleEditModal}
         data={selectedData}
       />
     </>
