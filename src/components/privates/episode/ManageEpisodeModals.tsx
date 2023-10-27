@@ -1,23 +1,21 @@
 import BaseInputText from "../../shares/inputs/BaseInputText";
-import BaseFileUploader from "../../shares/uploads/BaseFileUploader";
+import BaseFileUploader from "../../shares/uploads/Base";
 import useInput from "../../../hooks/useInput";
 import useFile from "../../../hooks/useFile";
-import BaseModal from "../../shares/modals/BaseModal";
-import ConfirmationModal from "../../shares/modals/ConfirmationModal";
+import BaseModal from "../../shares/modals/Base";
+import ConfirmationModal from "../../shares/modals/Confirmation";
 
 export default function ManageEpisodeModals({
   episodeId,
   isEditModalActive,
   isDeleteModalActive,
   handleEditModal,
-  handleDeleteModal,
   data,
 }: {
   episodeId: string;
   isEditModalActive: boolean;
   isDeleteModalActive: boolean;
   handleEditModal: () => void;
-  handleDeleteModal: () => void;
   data: string[];
 }) {
   const [title, setTitle] = useInput("");
@@ -84,7 +82,6 @@ export default function ManageEpisodeModals({
         id="episode-list-edit-modal"
         active={isEditModalActive}
         modalContent={editEpisodeForm}
-        onClose={() => handleEditModal()}
       />
       {/* <BaseModal id="episode-list-delete-modal" active={isDeleteModalActive} /> */}
       <ConfirmationModal
@@ -94,7 +91,6 @@ export default function ManageEpisodeModals({
         text2="from your library"
         confirmText="Delete"
         active={isDeleteModalActive}
-        handleActive={handleDeleteModal}
       />
     </>
   );

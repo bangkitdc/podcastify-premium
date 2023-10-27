@@ -1,3 +1,4 @@
+import useModal from "../../../hooks/useModal";
 export default function ConfirmationModal({
   heading,
   text1,
@@ -5,7 +6,6 @@ export default function ConfirmationModal({
   text2,
   confirmText,
   active,
-  handleActive,
 }: {
   heading: string;
   text1: string;
@@ -13,10 +13,11 @@ export default function ConfirmationModal({
   text2?: string;
   confirmText: string;
   active: boolean;
-  handleActive: () => void;
 }) {
-  const display = active ? "block" : "hidden";
-  
+  const [isActive, setIsActive] = useModal(active);
+
+  const display = isActive ? "block" : "hidden";
+
   return (
     <div
       className={` bg-[#000000b3] top-0 left-0 fixed w-full h-full z-[1001] ${display}`}
@@ -32,9 +33,12 @@ export default function ConfirmationModal({
             {text2}
           </p>
           <div className="flex justify-end gap-5 text-m pt-5">
-            <button type="button" className=" text-clr-text-black" onClick={handleActive}>
+            <div
+              className=" text-clr-text-black cursor-pointer"
+              onClick={setIsActive}
+            >
               Cancel
-            </button>
+            </div>
             <button className="font-bold bg-clr-text-info hover:bg-clr-text-info-hover py-1 px-5 rounded-full text-clr-text-black border-clr-background-highlight-one">
               {confirmText}
             </button>

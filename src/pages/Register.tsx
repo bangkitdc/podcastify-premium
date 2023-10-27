@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import useInput from "../hooks/useInput";
 import AuthInputText from "../components/shares/inputs/AuthInputText";
 
-const RegisterPage = () => {
+export default function Register() {
 
   const [fullname, setFullname] = useInput('')
   const [username, setUsername] = useInput('')
@@ -45,6 +45,4 @@ const RegisterPage = () => {
       </div>
     </div>
   );
-};
-
-export default RegisterPage;
+}

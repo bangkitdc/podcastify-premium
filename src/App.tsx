@@ -1,14 +1,14 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import { ICONS_DIR } from "./config/config.ts";
-import RegisterPage from "./pages/Registerpage.tsx";
-import Loginpage from "./pages/Loginpage.tsx";
-import Episodespage from "./pages/creator/Episodespage.tsx";
+import Register from "./pages/Register.tsx";
+import Login from "./pages/Login.tsx";
+import Episodes from "./pages/creator/Episodes.tsx";
 import Sidebar from "./components/shares/navbars/Sidebar.tsx";
 import Topbar from "./components/shares/navbars/Topbar.tsx";
-import Podcastspage from "./pages/creator/Podcastspage.tsx";
-import CreateEpisodepage from "./pages/creator/CreateEpisodepage.tsx";
-import CreatePodcastpage from "./pages/creator/CreatePodcastpage.tsx";
-import SubscribeReqPage from "./pages/admin/SubscribeReqPage.tsx";
+import Podcasts from "./pages/creator/Podcasts.tsx";
+import CreateEpisode from "./pages/creator/CreateEpisode.tsx";
+import CreatePodcast from "./pages/creator/CreatePodcast.tsx";
+import SubscribeReq from "./pages/admin/SubscribeReq.tsx";
 
 function App() {
   const currentUrl = useLocation().pathname;
@@ -39,12 +39,12 @@ function App() {
           <Topbar />
           <div className="flex-1 z-[1] py-0 px-6">
             <Routes>
-              {isAdmin ? <Route path="/" element={<SubscribeReqPage/>}/> : <Route path="/" element={<Episodespage />} />}
-              {/* <Route path="/" element={<Episodespage />} /> */}
-              <Route path="/episodes" element={<Episodespage />} />
-              <Route path="/podcasts" element={<Podcastspage />} />
-              <Route path="/create-episode" element={<CreateEpisodepage />} />
-              <Route path="/create-podcast" element={<CreatePodcastpage />} />
+              {isAdmin ? <Route path="/" element={<SubscribeReq/>}/> : <Route path="/" element={<Episodes />} />}
+              {/* <Route path="/" element={<Episodes />} /> */}
+              <Route path="/episodes" element={<Episodes />} />
+              <Route path="/podcasts" element={<Podcasts />} />
+              <Route path="/create-episode" element={<CreateEpisode />} />
+              <Route path="/create-podcast" element={<CreatePodcast />} />
               <Route path="/*" />
               {/* TODO: Error page */}
             </Routes>
@@ -57,8 +57,8 @@ function App() {
   return (
     <div className="flex flex-col h-screen overflow-x-hidden">
       <Routes>
-        <Route path="/" element={<Loginpage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </div>
   );

@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import BaseTable from "../../shares/tables/BaseTable";
 import Pagination from "../../shares/paginations/Pagination";
 import ManageEpisodeModals from "./ManageEpisodeModals";
+import useManageModal from "../../../hooks/useManageModal";
 
 export default function ListEpisode() {
-  const [isEditModalActive, setIsEditModalActive] = useState(false);
-  const [episodeId, setEpisodeId] = useState("");
+  const [ isEditModalActive, episodeIdEdit, handleEditModal] = useManageModal()
+  const [ isDeleteModalActive, episodeIdDelete, handleDeleteModal] = useManageModal()
   const [selectedData, setSelectedData] = useState([""]);
 
   const data = [
@@ -14,23 +15,11 @@ export default function ListEpisode() {
     ["Episode3", "Podcast2", "id3"],
   ];
 
-  const handleEditModal = (id?: string) => {
-    id ? setEpisodeId(id) : setEpisodeId("");
-    setIsEditModalActive(!isEditModalActive);
-  };
-
-  const [isDeleteModalActive, setIsDeleteModalActive] = useState(false);
-  
-  const handleDeleteModal = (id?: string) => {
-    id ? setEpisodeId(id) : setEpisodeId("");
-    setIsDeleteModalActive(!isDeleteModalActive);
-  };
-
   useEffect(() => {
     setSelectedData(
-      data.filter((d) => d[2] === episodeId).flatMap((d) => [d[0], d[1], d[2]])
+      data.filter((d) => d[2] === episodeIdDelete || d[2] === episodeIdEdit).flatMap((d) => [d[0], d[1], d[2]])
     );
-  }, [episodeId]);
+  }, [episodeIdEdit, episodeIdDelete]);
 
   const headers = ["Title", "Podcast", "Manage"];
   const percentage = [50, 30, 20];
@@ -48,11 +37,10 @@ export default function ListEpisode() {
       />
       <Pagination currentPage={1} totalPages={10} />
       <ManageEpisodeModals
-        episodeId={episodeId}
+        episodeId={episodeIdEdit || episodeIdDelete}
         isEditModalActive={isEditModalActive}
         isDeleteModalActive={isDeleteModalActive}
         handleEditModal={handleEditModal}
-        handleDeleteModal={handleDeleteModal}
         data={selectedData}
       />
     </>

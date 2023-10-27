@@ -1,11 +1,11 @@
-import AddButton from "../../components/shares/buttons/AddButton";
-import BaseInputText from "../../components/shares/inputs/BaseInputText";
-import BaseSelect from "../../components/shares/inputs/BaseSelect";
-import BaseUploader from "../../components/shares/uploads/BaseFileUploader";
-import useFile from "../../hooks/useFile";
-import useInput from "../../hooks/useInput";
+import AddButton from "../../shares/buttons/AddButton";
+import BaseInputText from "../../shares/inputs/BaseInputText";
+import BaseSelect from "../../shares/inputs/BaseSelect";
+import BaseFileUploader from "../../shares/uploads/Base";
+import useFile from "../../../hooks/useFile";
+import useInput from "../../../hooks/useInput";
 
-function CreatePodcastPage() {
+export default function CreateFormPodcast() {
   const [title, setTitle] = useInput("");
   const [description, setDescription] = useInput("");
   const [imageFile, setImageFile] = useFile(null);
@@ -13,28 +13,26 @@ function CreatePodcastPage() {
   const categories = ["Comedy", "Horror", "Deep Talk", "18+"];
   return (
     <>
-      <h1>Create a Podcast</h1>
-      <br />
       <form className="flex flex-col gap-3">
         <BaseInputText
-          id="episode-title"
+          id="podcast-title"
           label="Title"
-          placeholder="Enter episode title"
+          placeholder="Enter podcast title"
           is_require={false}
           value={title}
           setValue={setTitle}
         />
         <BaseInputText
-          id="episode-description"
+          id="podcast-description"
           label="Description"
-          placeholder="Enter episode description"
+          placeholder="Enter podcast description"
           is_require={false}
           value={description}
           setValue={setDescription}
         />
         <BaseSelect options={categories} label="Category" id="testselect" />
-        <BaseUploader
-          id="episode-poster-upload"
+        <BaseFileUploader
+          id="podcast-poster-upload"
           type="image"
           label="Poster File :"
           value={imageFile}
@@ -47,5 +45,3 @@ function CreatePodcastPage() {
     </>
   );
 }
-
-export default CreatePodcastPage;

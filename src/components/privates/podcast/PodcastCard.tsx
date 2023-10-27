@@ -1,5 +1,5 @@
 import { ICONS_DIR, IMAGES_DIR } from "../../../config/config";
-function PodcastCard({podcastData, img_url, handleEditModal }: {podcastData: string[]; img_url: string, handleEditModal : (id?: string) => void }) {
+function PodcastCard({podcastData, img_url, handleEditModal, handleDeleteModal }: {podcastData: string[]; img_url: string, handleEditModal : (id?: string) => void, handleDeleteModal : (id?: string) => void }) {
   
   return (
     <div className=" bg-clr-background-card p-4 rounded-lg h-fit shadow cursor-pointer flex flex-col hover:bg-clr-background-highlight-two">
@@ -17,8 +17,9 @@ function PodcastCard({podcastData, img_url, handleEditModal }: {podcastData: str
       <p className=" overflow-hidden whitespace-nowrap text-ellipsis">
         {podcastData[0]}
       </p>
-      <div>
+      <div className="flex justify-between">
         <img onClick={() => handleEditModal(podcastData[2])} src={ICONS_DIR + "edit.svg"} alt="" />
+        <img onClick={() => handleDeleteModal(podcastData[2])} src={ICONS_DIR + "trash.svg"} alt="" />
       </div>
     </div>
   );

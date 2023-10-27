@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import AuthInputText from "../components/shares/inputs/AuthInputText";
 import useInput from "../hooks/useInput";
 
-const Loginpage = () => {
+export default function Login() {
 
   const [username, setUsername] = useInput('')
   const [password, setPassword] = useInput('')
@@ -41,6 +41,4 @@ const Loginpage = () => {
       </div>
     </div>
   );
-};
-
-export default Loginpage;
+}
