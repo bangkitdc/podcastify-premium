@@ -2,20 +2,19 @@ import BaseInputText from "../../shares/inputs/BaseInputText";
 import BaseFileUploader from "../../shares/uploads/BaseFileUploader";
 import useInput from "../../../hooks/useInput";
 import useFile from "../../../hooks/useFile";
-import BaseModal from "../../shares/modals/BaseModal";
+import BaseModal from "../../shares/modals/Base";
 
 export default function ManagePodcastModals({
   podcastId,
   isEditModalActive,
-  handleEditModal,
+  handleManageModal,
   data,
 }: {
   podcastId: string;
   isEditModalActive: boolean;
-  handleEditModal: () => void;
-  data: string[]
+  handleManageModal: () => void;
+  data: string[];
 }) {
-  
   const [title, setTitle] = useInput("");
   const [description, setDescription] = useInput("");
   const [imageFile, setImageFile] = useFile(null);
@@ -59,7 +58,7 @@ export default function ManagePodcastModals({
                 <button
                   type="button"
                   className=" font"
-                  onClick={() => handleEditModal()}
+                  onClick={() => handleManageModal()}
                 >
                   Cancel
                 </button>

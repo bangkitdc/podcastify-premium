@@ -1,5 +1,5 @@
 import { ICONS_DIR, IMAGES_DIR } from "../../../config/config";
-function PodcastCard({podcastData, img_url, handleEditModal }: {podcastData: string[]; img_url: string, handleEditModal : (id?: string) => void }) {
+function PodcastCard({podcastData, img_url, handleManageModal }: {podcastData: string[]; img_url: string, handleManageModal : (id?: string) => void }) {
   
   return (
     <div className=" bg-clr-background-card p-4 rounded-lg h-fit shadow cursor-pointer flex flex-col hover:bg-clr-background-highlight-two">
@@ -18,7 +18,7 @@ function PodcastCard({podcastData, img_url, handleEditModal }: {podcastData: str
         {podcastData[0]}
       </p>
       <div>
-        <img onClick={() => handleEditModal(podcastData[2])} src={ICONS_DIR + "edit.svg"} alt="" />
+        <img onClick={() => handleManageModal(podcastData[2])} src={ICONS_DIR + "edit.svg"} alt="" />
       </div>
     </div>
   );
