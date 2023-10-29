@@ -18,7 +18,7 @@ export default function CreateFormPodcast() {
           id="podcast-title"
           label="Title"
           placeholder="Enter podcast title"
-          is_require={false}
+          required={false}
           value={title}
           setValue={setTitle}
         />
@@ -26,7 +26,7 @@ export default function CreateFormPodcast() {
           id="podcast-description"
           label="Description"
           placeholder="Enter podcast description"
-          is_require={false}
+          required={false}
           value={description}
           setValue={setDescription}
         />

@@ -17,7 +17,7 @@ export default function CreateFormEpisode() {
           id="episode-title"
           label="Title"
           placeholder="Enter episode title"
-          is_require={false}
+          required={false}
           value={title}
           setValue={setTitle}
         />
@@ -25,7 +25,7 @@ export default function CreateFormEpisode() {
           id="episode-description"
           label="Description"
           placeholder="Enter episode description"
-          is_require={false}
+          required={false}
           value={description}
           setValue={setDescription}
         />

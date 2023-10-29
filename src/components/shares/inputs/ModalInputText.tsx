@@ -10,7 +10,7 @@ export type BaseInputType = {
   setValue: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function BaseInputText({
+export default function ModalInputText({
   id,
   label,
   placeholder = "",
@@ -30,7 +30,7 @@ export default function BaseInputText({
         onChange={setValue}
         required={required}
         disabled={disabled}
-        className={`rounded shadow-input outline-none w-full box-border px-3 py-3.5 transition-all ease-in-out bg-clr-background-base-two text-sm placeholder-clr-text-primary-darken hover:shadow-input-modal-hover focus:shadow-input-modal-focus
+        className={`rounded outline-none w-full box-border px-2.5 py-2 transition-all ease-in-out bg-clr-background-modal-input text-[13px] placeholder-clr-text-primary-darken hover:shadow-input-modal-hover focus:shadow-input-modal-focus
           ${disabled ? "bg-clr-background-base-one" : ""}`}
       />
     </div>

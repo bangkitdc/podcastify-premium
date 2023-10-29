@@ -8,7 +8,9 @@ export default {
       "clr-background-highlight-one": "#1a1a1a",
       "clr-background-highlight-two": "#2a2a2a",
       "clr-background-highlight-three": "#a7a7a7",
+
       "clr-text-primary": "#f9f9f9",
+      "clr-text-primary-darken": "#878787",
       "clr-text-secondary": "#b3b3b3",
       "clr-text-secondary-darken": "#808080",
       "clr-text-info": "#1ed760",
@@ -17,9 +19,13 @@ export default {
       "clr-text-danger": "#f15e6c",
       "clr-text-announcement": "#3d91f4",
       "clr-text-black": "#000000",
+
       "clr-background-card": "#181818",
       "clr-hover-dropdown": "#3E3E3E",
       "clr-background-modal": "#282828",
+      "clr-background-modal-input": "#3E3E3E",
+
+      "transparent": "transparent",
 
       // 'background-noise': url('../assets/icons/bg.svg'),
 
@@ -36,7 +42,13 @@ export default {
     fontFamily: {
       circular: ["CircularStd", "sans"],
     },
-    extend: {},
+    extend: {
+      boxShadow: {
+        'input': '0 0 0 1px #878787',
+        'input-modal-hover': '0 0 0 1px #f9f9f9',
+        'input-modal-focus': '0 0 0 1.5px #f9f9f9'
+      }
+    },
   },
   plugins: [],
 };
