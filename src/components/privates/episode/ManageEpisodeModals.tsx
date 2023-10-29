@@ -34,7 +34,7 @@ export default function ManageEpisodeModals({
           id="episode-title"
           label="Title"
           placeholder={data[1] ? data[1] : "Enter episode title"}
-          is_require={false}
+          required={false}
           value={title}
           setValue={setTitle}
         />
@@ -42,7 +42,7 @@ export default function ManageEpisodeModals({
           id="episode-description"
           label="Description"
           placeholder={data[2] ? data[2] : "Enter episode description"}
-          is_require={false}
+          required={false}
           value={description}
           setValue={setDescription}
         />

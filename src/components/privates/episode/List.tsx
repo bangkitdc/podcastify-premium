@@ -7,7 +7,7 @@ import useManageModal from "../../../hooks/useManageModal";
 export default function ListEpisode() {
   const [ isEditModalActive, episodeIdEdit, handleEditModal] = useManageModal()
   const [ isDeleteModalActive, episodeIdDelete, handleDeleteModal] = useManageModal()
-  const [selectedData, setSelectedData] = useState([""]);
+  const [ selectedData, setSelectedData ] = useState([""]);
 
   const data = [
     ["Episode1", "Podcast1", "id1"],

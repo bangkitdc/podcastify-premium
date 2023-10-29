@@ -30,7 +30,7 @@ export default function ManagePodcastModals({
           id="podcast-title"
           label="Title"
           placeholder={data[0] ? data[0] : "Enter podcast title"}
-          is_require={false}
+          required={false}
           value={title}
           setValue={setTitle}
         />
@@ -38,7 +38,7 @@ export default function ManagePodcastModals({
           id="podcast-description"
           label="Description"
           placeholder={data[0] ? data[0] : "Enter podcast description"}
-          is_require={false}
+          required={false}
           value={description}
           setValue={setDescription}
         />
