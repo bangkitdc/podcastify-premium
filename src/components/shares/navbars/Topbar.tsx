@@ -1,6 +1,9 @@
+import { useAuth } from "@/contexts";
 import { ICONS_DIR, IMAGES_DIR } from "../../../config/config";
 
 function Topbar() {
+  const { user } = useAuth();
+
   return (
     <div className=" sticky top-0 col-span-3 flex justify-end py-4 px-6 items-center">
       <div className="items-center font-medium text-base cursor-pointer">
@@ -10,7 +13,7 @@ function Topbar() {
             src={IMAGES_DIR + "avatar-template.png"}
             alt=""
           />
-          <p className=" text-sm my-0 mx-[10] font-semibold">Admin</p>
+          <p className=" text-sm my-0 mx-[10] font-semibold">{user?.username}</p>
           <img
             className="w-3 mr-[10] pb-[2]"
             src={ICONS_DIR + "down-arrow.svg"}

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 
-import modalReducer from './useModalState/reducer';
+import modalReducer from './modals/reducer';
 
 const rootReducer = combineReducers({
   modal: modalReducer,

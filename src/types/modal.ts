@@ -1,4 +1,4 @@
 export type ModalState = {
-  target: string;
-  show: boolean;
+  target: string
+  show: boolean
 };
