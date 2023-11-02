@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { addModal, close, show } from "@/compossables/useModalState/reducer";
+import { addModal, close, show } from "@/redux/modals/reducer";
 
 import PrimaryModal from "@/components/shares/modals/Primary";
 import BaseTable from "@/components/shares/tables/BaseTable";

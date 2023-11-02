@@ -1,12 +1,22 @@
-const support = () => {
-  const URL = process.env.API_BASE_URL as string;
+import axios from "axios";
 
+const url = import.meta.env.VITE_API_BASE_URL;
+const api = axios.create({
+  baseURL: url,
+  withCredentials: true
+});
+
+const support = () => {  
   const apiUrl = {
-    login: URL + '/login',
-    register: URL +'/register'
+    login: '/login',
+    register: '/register',
+    refreshToken: '/refresh_token',
+    logout: '/logout',
+
+    self: '/self',
   }
 
-  return { apiUrl };
+  return { api, apiUrl };
 }
 
 export default support;

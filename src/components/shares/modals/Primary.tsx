@@ -2,8 +2,8 @@ import { ReactNode } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { ModalState } from "@/types/modal";
-import { close } from "@/compossables/useModalState/reducer";
-import { RootState } from "@/compossables/store";
+import { close } from "@/redux/modals/reducer";
+import { RootState } from "@/redux/store";
 
 export default function PrimaryModal({
   id,

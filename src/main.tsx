@@ -5,14 +5,17 @@ import './index.css'
 import '../public/styles/pagination.css'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux';
-import { store } from '@/compossables/store'
+import { store } from '@/redux/store.ts'
+import AuthProvider from './providers/AuthProvider.tsx'
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <BrowserRouter>
-    <React.StrictMode>
+  <React.StrictMode>
+    <BrowserRouter>
       <Provider store={store}>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </Provider>
-    </React.StrictMode>
-  </BrowserRouter>
+    </BrowserRouter>
+  </React.StrictMode>
 );

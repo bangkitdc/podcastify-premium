@@ -24,7 +24,8 @@
     "paths": {
       "@/*": ["*"],
       "@/components/*": ["components/*"],
-      "@/compossables/*": ["compossables/*"],
+      "@/contexts/*": ["contexts/*"],
+      "@/redux/*": ["redux/*"],
       "@/api/*": ["api/*"],
       "@/config/*": ["config/*"],
       "@/hooks/*": ["hooks/*"],
