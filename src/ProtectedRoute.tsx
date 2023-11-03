@@ -23,9 +23,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAuth, isAdmin, curren
   const creatorNavList = {
     // url, [display, iconUrl]
     "/": ["Your Episodes", ICONS_DIR + "episode.svg"],
-    "/podcasts": ["Your Podcasts", ICONS_DIR + "podcast.svg"],
     "/create-episode": ["Create Episode", ICONS_DIR + "add-circle.svg"],
-    "/create-podcast": ["Create Podcast", ICONS_DIR + "add-circle.svg"],
   };
 
   const adminNavList = {
