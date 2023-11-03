@@ -10,6 +10,7 @@ import { useAuth } from "./contexts/index.ts";
 import { jwtDecode } from "jwt-decode";
 import ProtectedRoute from "./ProtectedRoute.tsx";
 import { useEffect, lazy, Suspense } from "react";
+import EpisodeDetail from "./pages/creator/EpisodeDetail.tsx";
 
 const SubscribeReq = lazy(() => import("./pages/admin/SubscribeReq"));
 const Episodes = lazy(() => import("./pages/creator/Episodes"));
@@ -75,6 +76,27 @@ function App() {
             ) : (
               <Suspense fallback={<div>Loading...</div>}>
                 <Episodes />
+              </Suspense>
+            )}
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/:id"
+        element={
+          <ProtectedRoute
+            isAuth={isAuth}
+            isAdmin={isAdmin}
+            currentUrl={currentUrl}
+          >
+            {isAdmin ? (
+              <Suspense fallback={<div>Loading...</div>}>
+                <SubscribeReq />
+              </Suspense>
+            ) : (
+              <Suspense fallback={<div>Loading...</div>}>
+                <EpisodeDetail />
               </Suspense>
             )}
           </ProtectedRoute>
