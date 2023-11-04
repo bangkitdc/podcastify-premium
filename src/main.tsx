@@ -7,11 +7,13 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux';
 import { store } from '@/redux/store.ts'
 import AuthProvider from './providers/AuthProvider.tsx'
+import PrimaryNotification from './components/shares/notifications/Primary.tsx'
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
+        <PrimaryNotification />
         <AuthProvider>
           <App />
         </AuthProvider>

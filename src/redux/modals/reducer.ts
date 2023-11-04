@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ModalState } from '@/types/modal';
+import { IModalState } from '@/types/modal';
 
-const initialState : ModalState[] = [];
+const initialState : IModalState[] = [];
 
 export const MODAL = 'modal';
 
@@ -12,12 +12,14 @@ const modalSlice = createSlice({
     addModal: (state, action) => {
       state.push({ target: action.payload, show: false });
     },
+
     show: (state, action) => {
       const modal = state.find((item) => item.target === action.payload);
       if (modal) {
         modal.show = true;
       }
     },
+    
     close: (state, action) => {
       const modal = state.find((item) => item.target === action.payload);
       if (modal) {
