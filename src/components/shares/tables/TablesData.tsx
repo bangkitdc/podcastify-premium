@@ -1,15 +1,13 @@
+import { ICONS_DIR } from "@/config/config";
+
 function TablesData({
   data,
-  onClickManage1,
-  onClickManage2,
-  manageOption,
-  manageText,
+  onClickManage,
+  onNavigate,
 }: {
   data: string[][];
-  manageOption: boolean;
-  manageText?: string[];
-  onClickManage1: (id?:string) => void;
-  onClickManage2: (id?:string) => void;
+  onClickManage?: (id?: string) => void;
+  onNavigate?: (id: string) => void;
 }) {
   return (
     <>
@@ -17,32 +15,32 @@ function TablesData({
         <td colSpan={5}></td>
       </tr>
       {data.map((d, index) => (
-        <tr className=" hover:bg-clr-background-highlight-two">
-          <td>{index+1}</td>
-          <td>
-            <img src="" alt="" />
-            <div>
-              <p>{d[0]}</p>
-            </div>
-          </td>
-          <td>
-            <p>{d[1]}</p>
-          </td>
-          {manageOption && manageText ? <td className="flex gap-2">
-            <p
-              className="hover:underline cursor-pointer font-thin"
-              onClick={() => onClickManage1(d[2])}
-            >
-              {manageText[0]}
-            </p>
-            <p>|</p>
-            <p
-              className="hover:underline cursor-pointer font-thin"
-              onClick={() => onClickManage2(d[2])}
-            >
-              {manageText[1]}
-            </p>
-          </td> : null}
+        <tr
+          className={` group hover:bg-clr-background-highlight-two ${
+            onNavigate ? " cursor-pointer" : ""
+          }`}
+          onClick={onNavigate ? () => onNavigate(d[0]) : undefined}
+        >
+          <td>{index + 1}</td>
+          {d.slice(0, d.length - 1).map((_, index) => {
+            return (
+              <td>
+                <p className=" group-hover:text-clr-text-primary">{d[index + 1]}</p>
+              </td>
+            );
+          })}
+          {onClickManage ? (
+            <td className="flex gap-2 relative">
+              <img
+                className=" h-5 w-5 hidden group-hover:block cursor-pointer"
+                src={ICONS_DIR + "three-dots.svg"}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClickManage(d[0]);
+                }}
+              />
+            </td>
+          ) : null}
         </tr>
       ))}
     </>

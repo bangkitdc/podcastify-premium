@@ -1,5 +1,5 @@
 import { useAuth } from "@/contexts";
-import { ICONS_DIR, IMAGES_DIR } from "../../../config/config";
+import { IMAGES_DIR } from "../../../config/config";
 
 function Topbar() {
   const { user } = useAuth();
@@ -14,11 +14,6 @@ function Topbar() {
             alt=""
           />
           <p className=" text-sm my-0 mx-[10] font-semibold">{user?.username}</p>
-          <img
-            className="w-3 mr-[10] pb-[2]"
-            src={ICONS_DIR + "down-arrow.svg"}
-            alt=""
-          />
         </button>
       </div>
       <div></div>

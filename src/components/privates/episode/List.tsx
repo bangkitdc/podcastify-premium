@@ -1,28 +1,70 @@
-import { useEffect, useState } from "react";
-import BaseTable from "../../shares/tables/BaseTable";
-import Pagination from "../../shares/paginations/Pagination";
-import ManageEpisodeModals from "./ManageEpisodeModals";
-import useManageModal from "../../../hooks/useManageModal";
+import { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { addModal, close, show } from "@/redux/modals/reducer";
+
+import PrimaryModal from "@/components/shares/modals/Primary";
+import BaseTable from "@/components/shares/tables/BaseTable";
+import BaseFileUploader from "@/components/shares/uploads/Base";
+
+import useInput from "@/hooks/useInput";
+import useFile from "@/hooks/useFile";
+import ModalInputText from "@/components/shares/inputs/ModalInputText";
+import { useNavigate } from "react-router-dom";
 
 export default function ListEpisode() {
-  const [ isEditModalActive, episodeIdEdit, handleEditModal] = useManageModal()
-  const [ isDeleteModalActive, episodeIdDelete, handleDeleteModal] = useManageModal()
-  const [ selectedData, setSelectedData ] = useState([""]);
-
   const data = [
-    ["Episode1", "Podcast1", "id1"],
-    ["Episode2", "Podcast1", "id2"],
-    ["Episode3", "Podcast2", "id3"],
+    ["id1", "Episode1", "Podcast1",],
+    ["id2", "Episode2", "Podcast1",],
+    ["id3", "Episode3", "Podcast2", ],
   ];
 
-  useEffect(() => {
-    setSelectedData(
-      data.filter((d) => d[2] === episodeIdDelete || d[2] === episodeIdEdit).flatMap((d) => [d[0], d[1], d[2]])
-    );
-  }, [episodeIdEdit, episodeIdDelete]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const headers = ["Title", "Podcast", "Manage"];
-  const percentage = [50, 30, 20];
+  // Create modal reference
+  const modalManage = useRef("modalManage");
+  dispatch(addModal(modalManage.current));
+
+  // const modalDelete = useRef("modalDelete");
+  // dispatch(addModal(modalDelete.current));
+
+  const handleOpenModal = (modalId: string) => {
+    dispatch(show(modalId));
+  };
+
+  const handleCloseModal = () => {
+    dispatch(close(modalManage.current));
+  };
+
+  const onNavigate = (id: string) => [
+    navigate(id)
+  ]
+
+  const handleSave = async () => {
+    try {
+      console.log("submitted");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      console.log("deleted");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const headers = ["Title", "Podcast"];
+  const percentage = [50, 40, 10];
+
+  // TODO:dont use like this
+  // make it fetch every open/ empty
+  const [title, setTitle] = useInput("");
+  const [description, setDescription] = useInput("");
+  const [imageFile, setImageFile] = useFile(null);
+  const [audioFile, setAudioFile] = useFile(null);
 
   return (
     <>
@@ -31,17 +73,74 @@ export default function ListEpisode() {
         percentage={percentage}
         data={data}
         manageOption={true}
-        manageText={["Edit", "Delete"]}
-        onClickManage1={handleEditModal}
-        onClickManage2={handleDeleteModal}
+        onClickManage={() => handleOpenModal(modalManage.current)}
+        onNavigate={onNavigate}
       />
-      <Pagination currentPage={1} totalPages={10} />
-      <ManageEpisodeModals
-        episodeId={episodeIdEdit || episodeIdDelete}
-        isEditModalActive={isEditModalActive}
-        isDeleteModalActive={isDeleteModalActive}
-        handleEditModal={handleEditModal}
-        data={selectedData}
+      <PrimaryModal
+        key={modalManage.current}
+        id={modalManage.current}
+        modalContent={
+          <div className="flex flex-col gap-4">
+            <h2 className="text-left">Edit episode</h2>
+            <form className="flex flex-col gap-4">
+              <ModalInputText
+                id="episode-title"
+                label="Title"
+                placeholder="Title"
+                required={false}
+                value={title}
+                setValue={setTitle}
+              />
+              <ModalInputText
+                id="episode-description"
+                label="Description"
+                placeholder="Description"
+                required={false}
+                value={description}
+                setValue={setDescription}
+              />
+              <BaseFileUploader
+                id="episode-poster-upload"
+                type="image"
+                label="Poster File :"
+                value={imageFile}
+                setValue={setImageFile}
+              />
+              <BaseFileUploader
+                id="episode-poster-upload"
+                type="audio"
+                label="Audio File :"
+                value={audioFile}
+                setValue={setAudioFile}
+              />
+            </form>
+            <div className="flex justify-between mt-10">
+              <div>
+                <button
+                  className="text-sm font-bold bg-clr-text-danger hover:bg-clr-text-danger/90 py-2 px-6 rounded-full text-clr-text-black border-clr-background-highlight-one"
+                  onClick={handleDelete}
+                >
+                  Delete
+                </button>
+              </div>
+              <div className="flex gap-4">
+                <button
+                  type="button"
+                  className="px-1 py-2 hover:text-clr-text-primary-darken text-sm"
+                  onClick={handleCloseModal}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="text-sm font-bold bg-clr-text-info hover:bg-clr-text-info-hover py-2 px-6 rounded-full text-clr-text-black border-clr-background-highlight-one"
+                  onClick={handleSave}
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        }
       />
     </>
   );
