@@ -1,6 +1,6 @@
 import { RootState } from "@/redux/store";
 import { close } from "@/redux/modals/reducer";
-import { ModalState } from "@/types/modal";
+import { IModalState } from "@/types/modal";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function ConfirmationModal2({
@@ -26,7 +26,7 @@ export default function ConfirmationModal2({
 
   const modals = useSelector((state: RootState) => state.modal);
   const isActive =
-    modals.find((modal: ModalState) => modal.target === id)?.show || false;
+    modals.find((modal: IModalState) => modal.target === id)?.show || false;
 
   return (
     <div

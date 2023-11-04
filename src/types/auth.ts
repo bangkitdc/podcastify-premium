@@ -1,3 +1,4 @@
+import { IApiBaseResponse } from "./http"
 import { IApiBaseUserSelf } from "./user"
 
 export type IApiBaseAuthLogin = {
@@ -16,7 +17,7 @@ export type IApiBaseAuthContext = {
   login: (
     username: string, 
     password: string
-  ) => Promise<void>
+  ) => Promise<IApiBaseResponse<IApiBaseAuthLogin>>
 
   register: (
     email: string,
