@@ -13,6 +13,8 @@ const support = () => {
     refreshToken: '/refresh_token',
     logout: '/logout',
 
+    episode: "/episode",
+    
     self: '/self',
   }
 
