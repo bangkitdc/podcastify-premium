@@ -176,7 +176,6 @@ export default function ListEpisode() {
                 id="episode-title"
                 label="Title"
                 placeholder="Title"
-                required={false}
                 value={title}
                 setValue={setTitle}
               />
@@ -184,7 +183,6 @@ export default function ListEpisode() {
                 id="episode-description"
                 label="Description"
                 placeholder="Description"
-                required={false}
                 value={description}
                 setValue={setDescription}
               />

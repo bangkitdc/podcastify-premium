@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { ModalState } from "@/types/modal";
+import { IModalState } from "@/types/modal";
 import { close } from "@/redux/modals/reducer";
 import { RootState } from "@/redux/store";
 
@@ -20,7 +20,7 @@ export default function PrimaryModal({
 
   const modals = useSelector((state: RootState) => state.modal);
   const isActive =
-    modals.find((modal: ModalState) => modal.target === id)
+    modals.find((modal: IModalState) => modal.target === id)
       ?.show || false;
 
   return (

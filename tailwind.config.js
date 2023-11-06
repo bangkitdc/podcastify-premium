@@ -17,7 +17,7 @@ export default {
       "clr-text-info-hover": "#0ab346",
       "clr-text-warning": "#ffa42b",
       "clr-text-danger": "#f15e6c",
-      "clr-text-announcement": "#3d91f4",
+      "clr-text-success": "#3d91f4",
       "clr-text-black": "#000000",
 
       "clr-background-card": "#181818",
@@ -45,8 +45,10 @@ export default {
     extend: {
       boxShadow: {
         'input': '0 0 0 1px #878787',
-        'input-modal-hover': '0 0 0 1px #f9f9f9',
-        'input-modal-focus': '0 0 0 1.5px #f9f9f9'
+        'input-hover': '0 0 0 1px #f9f9f9',
+        'input-focus': '0 0 0 1.5px #f9f9f9',
+        'input-error': '0 0 0 1px #f15e6c',
+        'input-focus-error': '0 0 0 1.5px #f15e6c',
       }
     },
   },

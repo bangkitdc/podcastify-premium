@@ -1,13 +1,12 @@
-import { AxiosError } from 'axios'
-import { IApiBaseResponseError } from '@/types/http'
-import { useRef } from 'react';
+import { AxiosError } from 'axios';
+import { IApiBaseResponseError } from '@/types/http';
+import { useRef, useState } from 'react';
 
 const useError = <TError = unknown>() => {
-  const errorsRef = useRef<TError | undefined>(undefined);
-  const messageRef = useRef<string | undefined>(undefined);
+  const [errors, setErrors] = useState<TError | undefined>(undefined);
+  const message = useRef<string | undefined>(undefined);
 
   const getErrors = (key?: keyof TError) => {
-    const errors = errorsRef.current;
     if (errors instanceof Array && !key) {
       return errors;
     }
@@ -17,28 +16,26 @@ const useError = <TError = unknown>() => {
   }
 
   const getMessage = () => {
-    const message = messageRef.current;
-
-    return message;
+    return message.current;
   }
 
   const set = (error: unknown) => {
     const err = error as AxiosError<IApiBaseResponseError<TError>>
 
-    // setErrors(err.response?.data.errors);
-    errorsRef.current = err.response?.data.errors;
-    // setMessage(err.response?.data.message || '');
-    messageRef.current = err.response?.data.message;
+    setErrors(err.response?.data.errors);
+    // setMessage(err.response?.data.message);
+
+    message.current = err.response?.data.message;
   }
 
   const clear = () => {
-    // setErrors(undefined);
-    errorsRef.current = undefined;
-    // setMessage('');
-    messageRef.current = undefined;
+    setErrors(undefined);
+    // setMessage(undefined);
+
+    message.current = undefined;
   }
 
-  return { set, getErrors, getMessage, clear }
+  return { set, getErrors, getMessage, clear };
 }
 
 export default useError;
