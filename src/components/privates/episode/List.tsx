@@ -1,9 +1,8 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addModal, close, show } from "@/redux/modals/reducer";
 
 import PrimaryModal from "@/components/shares/modals/Primary";
-import BaseTable from "@/components/shares/tables/BaseTable";
 import BaseFileUploader from "@/components/shares/uploads/Base";
 
 import useInput from "@/hooks/useInput";
@@ -11,12 +10,26 @@ import useFile from "@/hooks/useFile";
 import ModalInputText from "@/components/shares/inputs/ModalInputText";
 import { useNavigate } from "react-router-dom";
 
+import episode from "@/api";
+import { IApiBaseEpisode } from "@/types/episode";
+import TablesHeader from "@/components/shares/tables/TablesHeader";
+import TablesData from "@/components/shares/tables/TablesData";
+
 export default function ListEpisode() {
-  const data = [
-    ["id1", "Episode1", "Podcast1",],
-    ["id2", "Episode2", "Podcast1",],
-    ["id3", "Episode3", "Podcast2", ],
-  ];
+  const [currentEpisodes, setCurrentEpisodes] = useState<IApiBaseEpisode[]>([]);
+  const [currentEpisode, setCurrentEpisode] = useState<IApiBaseEpisode>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const episodesData = await episode().episode().episodes();
+        setCurrentEpisodes(episodesData.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,21 +41,62 @@ export default function ListEpisode() {
   // const modalDelete = useRef("modalDelete");
   // dispatch(addModal(modalDelete.current));
 
-  const handleOpenModal = (modalId: string) => {
-    dispatch(show(modalId));
+  const handleOpenModal = async (episode_id?: string) => {
+    try {
+      const episodeData = await episode()
+        .episode()
+        .episodeDetail("/" + episode_id ?? "");
+
+      setCurrentEpisode(episodeData.data);
+
+      setTitle(episodeData.data.title);
+      setDescription(episodeData.data.description);
+    } catch (error) {
+      console.error(error);
+    }
+
+    dispatch(show(modalManage.current));
   };
 
   const handleCloseModal = () => {
     dispatch(close(modalManage.current));
   };
 
-  const onNavigate = (id: string) => [
-    navigate(id)
-  ]
+  const onNavigate = (id: string) => {
+    navigate(id);
+  };
 
   const handleSave = async () => {
     try {
-      console.log("submitted");
+      if (currentEpisode) {
+        const image_url = imageFile?.name ?? currentEpisode.image_url;
+        const audio_url = audioFile?.name ?? currentEpisode.audio_url;
+
+        const updatedEpisode = await episode()
+          .episode()
+          .updateEpisode(
+            currentEpisode.episode_id,
+            title,
+            description,
+            currentEpisode.creator_id,
+            currentEpisode.category_id,
+            currentEpisode.duration,
+            image_url,
+            audio_url
+          );
+
+        const episodeIdx = currentEpisodes.findIndex(
+          (episode) => episode.episode_id === updatedEpisode.data.episode_id
+        );
+
+        if (episodeIdx) {
+          const newCurrentEpisodes = [...currentEpisodes];
+          newCurrentEpisodes[episodeIdx] = updatedEpisode.data;
+          setCurrentEpisodes(newCurrentEpisodes);
+        }
+      }
+
+      handleCloseModal();
     } catch (error) {
       console.error(error);
     }
@@ -50,14 +104,37 @@ export default function ListEpisode() {
 
   const handleDelete = async () => {
     try {
-      console.log("deleted");
+      const deletedEpisode = await episode()
+        .episode()
+        .deleteEpisode(currentEpisode?.episode_id ?? -1);
+
+      const updatedEpisodes = currentEpisodes.filter(
+        (episode) => episode.episode_id !== deletedEpisode.data.episode_id
+      );
+
+      setCurrentEpisodes(updatedEpisodes);
+      handleCloseModal();
     } catch (error) {
       console.error(error);
     }
   };
 
-  const headers = ["Title", "Podcast"];
-  const percentage = [50, 40, 10];
+  function formatDuration(seconds: number) {
+    const hours = Math.floor(seconds / 3600);
+    const remainingSeconds = seconds % 3600;
+    const minutes = Math.floor(remainingSeconds / 60);
+
+    const remainingSecondsFinal = remainingSeconds % 60;
+
+    const formattedHours = String(hours).padStart(2, "0");
+    const formattedMinutes = String(minutes).padStart(2, "0");
+    const formattedSeconds = String(remainingSecondsFinal).padStart(2, "0");
+
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+  }
+
+  const headers = ["Title", "Duration", ""];
+  const percentage = [50, 40, 5];
 
   // TODO:dont use like this
   // make it fetch every open/ empty
@@ -68,14 +145,26 @@ export default function ListEpisode() {
 
   return (
     <>
-      <BaseTable
-        headers={headers}
-        percentage={percentage}
-        data={data}
-        manageOption={true}
-        onClickManage={() => handleOpenModal(modalManage.current)}
-        onNavigate={onNavigate}
-      />
+      <table className=" text-clr-text-secondary">
+        <TablesHeader headers={headers} percentage={percentage} />
+        {currentEpisodes.map((episode, index) => {
+          const dataContext = ["num", "title", "duration"];
+          const duration = formatDuration(episode.duration);
+
+          const dataContent = [index + 1, episode.title, duration];
+          return (
+            <TablesData
+              key={index}
+              dataContext={dataContext}
+              dataContent={dataContent}
+              onClickManage={() =>
+                handleOpenModal(episode.episode_id.toString())
+              }
+              onNavigate={() => onNavigate(episode.episode_id.toString())}
+            />
+          );
+        })}
+      </table>
       <PrimaryModal
         key={modalManage.current}
         id={modalManage.current}
