@@ -1,7 +1,8 @@
-import auth from "./auth";
-import user from "./user";
-import error from "./error";
-import episode from "./episode"
+import auth from './auth';
+import user from './user';
+import error from './error';
+import episode from './episode';
+import subscription from './subscription';
 
 // const tryCatchWrapper = (module:any) => {
 //   for (const key in module) {
@@ -35,13 +36,13 @@ import episode from "./episode"
 // }
 
 const apiBase = () => {
-
   return {
     auth,
     user,
     episode,
-    error
-  }
-}
+    subscription,
+    error,
+  };
+};
 
 export default apiBase;
