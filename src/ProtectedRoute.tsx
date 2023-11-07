@@ -39,7 +39,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAuth, isAdmin, curren
           <Sidebar navList={creatorNavList} currentUrl={currentUrl} />
         )}
         {/* <Sidebar navList={navList} currentUrl={currentUrl} /> */}
-        <div className="flex flex-col relative col-span-3 row-span-6 overflow-scroll rounded-lg bg-clr-background-base-two">
+        <div className="flex flex-col relative col-span-3 row-span-6 overflow-y-scroll rounded-lg bg-clr-background-base-two">
           {/* Gradient */}
           {/* <div className=" absolute h-[50vh] bg-gradient-to-b from-clr-text-primary via-clr-background-highlight-three to-clr-background-base-two w-full z-0"></div> */}
           <Topbar />

@@ -11,6 +11,9 @@ import ModalInputText from "@/components/shares/inputs/ModalInputText";
 import { useNavigate } from "react-router-dom";
 
 import episode from "@/api";
+import apiBase from "@/api";
+import { IApiBaseError } from "@/types/http";
+import { addNotification } from "@/redux/notifications/reducer";
 import { IApiBaseEpisode } from "@/types/episode";
 import TablesHeader from "@/components/shares/tables/TablesHeader";
 import TablesData from "@/components/shares/tables/TablesData";
@@ -32,6 +35,7 @@ export default function ListEpisode() {
   }, []);
 
   const dispatch = useDispatch();
+  const apiBaseError = apiBase().error<IApiBaseError>();
   const navigate = useNavigate();
 
   // Create modal reference
@@ -42,6 +46,7 @@ export default function ListEpisode() {
   // dispatch(addModal(modalDelete.current));
 
   const handleOpenModal = async (episode_id?: string) => {
+    apiBaseError.clear();
     try {
       const episodeData = await episode()
         .episode()
@@ -85,20 +90,32 @@ export default function ListEpisode() {
             audio_url
           );
 
-        const episodeIdx = currentEpisodes.findIndex(
-          (episode) => episode.episode_id === updatedEpisode.data.episode_id
-        );
+        setCurrentEpisodes((prevEpisodes) => {
+          return prevEpisodes.map((episode) =>
+            episode.episode_id === updatedEpisode.data.episode_id ? updatedEpisode.data : episode
+          );
+        });
 
-        if (episodeIdx) {
-          const newCurrentEpisodes = [...currentEpisodes];
-          newCurrentEpisodes[episodeIdx] = updatedEpisode.data;
-          setCurrentEpisodes(newCurrentEpisodes);
+        handleCloseModal();
+
+        if (updatedEpisode.status === "success") {
+          dispatch(
+            addNotification({
+              message: updatedEpisode.message,
+              type: "success",
+            })
+          );
         }
       }
-
-      handleCloseModal();
     } catch (error) {
-      console.error(error);
+      apiBaseError.set(error);
+
+      dispatch(
+        addNotification({
+          message: apiBaseError.getMessage(),
+          type: "danger",
+        })
+      );
     }
   };
 
@@ -114,8 +131,25 @@ export default function ListEpisode() {
 
       setCurrentEpisodes(updatedEpisodes);
       handleCloseModal();
+
+      if (deletedEpisode.status === "success") {
+        dispatch(
+          addNotification({
+            message: deletedEpisode.message,
+            type: "success",
+          })
+        );
+      }
+      console.log(currentEpisodes);
     } catch (error) {
-      console.error(error);
+      apiBaseError.set(error);
+
+      dispatch(
+        addNotification({
+          message: apiBaseError.getMessage(),
+          type: "danger",
+        })
+      );
     }
   };
 
@@ -178,6 +212,7 @@ export default function ListEpisode() {
                 placeholder="Title"
                 value={title}
                 setValue={setTitle}
+                error={apiBaseError.getErrors("title")?.[0]?.toString()}
               />
               <ModalInputText
                 id="episode-description"
@@ -185,6 +220,7 @@ export default function ListEpisode() {
                 placeholder="Description"
                 value={description}
                 setValue={setDescription}
+                error={apiBaseError.getErrors("description")?.[0]?.toString()}
               />
               <BaseFileUploader
                 id="episode-poster-upload"
@@ -194,7 +230,7 @@ export default function ListEpisode() {
                 setValue={setImageFile}
               />
               <BaseFileUploader
-                id="episode-poster-upload"
+                id="episode-audio-upload"
                 type="audio"
                 label="Audio File :"
                 value={audioFile}
