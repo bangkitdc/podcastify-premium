@@ -1,7 +1,11 @@
+import ManageSubscription from '@/components/privates/subscription/ManageSubscription';
+
 export default function SubscribeReqPage() {
-  return(
-    <div>
+  return (
+    <>
       <h1>Manage Subcription Request</h1>
-    </div>
-  )
+      <br />
+      <ManageSubscription />
+    </>
+  );
 }
