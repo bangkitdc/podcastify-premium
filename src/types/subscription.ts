@@ -1,8 +1,8 @@
 export type IApiBaseSubscription = {
-  creatorID: number;
-  creatorName: string;
-  subscriberID: number;
-  subscriberName: string;
+  creator_id: number;
+  creator_name: string;
+  subscriber_id: number;
+  subscriber_name: string;
   status: string;
 };
 

@@ -42,9 +42,9 @@ export default function ManageSubscription() {
     try {
       if (subscription) {
         await apiBase().subscription().updateSubscriptionStatus({
-          subscriber_id: subscription.subscriberID,
-          creator_id: subscription.creatorID,
-          creator_name: subscription.creatorName,
+          subscriber_id: subscription.subscriber_id,
+          creator_id: subscription.creator_id,
+          creator_name: subscription.creator_name,
           status: SUBSCRIPTION_STATUS.REJECTED,
         });
         fetchData();
@@ -60,9 +60,9 @@ export default function ManageSubscription() {
     try {
       if (subscription) {
         await apiBase().subscription().updateSubscriptionStatus({
-          subscriber_id: subscription.subscriberID,
-          creator_id: subscription.creatorID,
-          creator_name: subscription.creatorName,
+          subscriber_id: subscription.subscriber_id,
+          creator_id: subscription.creator_id,
+          creator_name: subscription.creator_name,
           status: SUBSCRIPTION_STATUS.ACCEPTED,
         });
         fetchData();
@@ -119,10 +119,10 @@ export default function ManageSubscription() {
 
             const dataContent = [
               i + 1,
-              subscription.subscriberID,
-              subscription.subscriberName,
-              subscription.creatorID,
-              subscription.creatorName,
+              subscription.subscriber_id,
+              subscription.subscriber_name,
+              subscription.creator_id,
+              subscription.creator_name,
               subscription.status,
             ];
             return (
@@ -143,7 +143,7 @@ export default function ManageSubscription() {
         modalContent={
           <div className="flex flex-col gap-4">
             <h2 className="text-left">
-              Edit Subscription for {subscription?.subscriberName} on Creator {subscription?.creatorName}
+              Edit Subscription for {subscription?.subscriber_name} on Creator {subscription?.creator_name}
             </h2>
             <div className="flex justify-between mt-10">
               <div>
