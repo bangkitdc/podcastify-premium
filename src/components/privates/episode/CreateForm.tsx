@@ -6,7 +6,7 @@ import useInput from "../../../hooks/useInput";
 
 import apiBase from "@/api";
 import episode from "@/api";
-import { IApiBaseError } from "@/types/http";
+import { IApiBaseError, IApiBaseResponseError } from "@/types/http";
 import { useDispatch } from "react-redux";
 import { addNotification } from "@/redux/notifications/reducer";
 import { FormEvent } from "react";
@@ -22,15 +22,40 @@ export default function CreateFormEpisode() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
+    let audioReqErr = false;
     try {
-      const image_url = imageFile ? imageFile.name : "";
-      const audio_url = audioFile ? audioFile.name : "";
+      let duration = 0;
+  
+      if (audioFile) {
+        const audioObject = URL.createObjectURL(audioFile[0]);
+        const audioElement = new Audio(audioObject);
+  
+        const getAudioDuration = () => {
+          return new Promise((resolve) => {
+            audioElement.addEventListener("loadedmetadata", () => {
+              duration = audioElement.duration;
+              resolve(duration);
+            });
+          });
+        };
+  
+        await getAudioDuration();
+      } else {
+        audioReqErr = true;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const error: IApiBaseResponseError<any> = {
+          status: "error",
+          message: "Audio Required",
+          errors: '',
+        };
 
+        throw error
+      }
+  
       const response = await episode()
         .episode()
-        .createEpisode(title, description, 1, 1, 7250, audio_url, image_url);
-
+        .createEpisode(title, description, 1, duration, imageFile, audioFile);
+  
       if (response.status === "success") {
         dispatch(
           addNotification({
@@ -42,10 +67,10 @@ export default function CreateFormEpisode() {
     } catch (error) {
       apiBaseError.set(error);
 
-      if(apiBaseError.getErrors("audio_url")) {
+      if(audioReqErr) {
         dispatch(
           addNotification({
-            message: apiBaseError.getErrors("audio_url")?.[0]?.toString(),
+            message: error.message,
             type: "danger",
           })
         );
