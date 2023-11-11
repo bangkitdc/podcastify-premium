@@ -23,10 +23,11 @@ export default function ManageSubscription() {
     'Subscriber ID',
     'Subscriber Name',
     'Creator ID',
+    'Creator Name',
     'Status',
     '',
   ];
-  const percentage = [15, 40, 15, 20, 5];
+  const percentage = [10, 30, 10, 30, 10, 5];
 
   // Create modal reference
   const modalManage = useRef('modalManage');
@@ -41,8 +42,9 @@ export default function ManageSubscription() {
     try {
       if (subscription) {
         await apiBase().subscription().updateSubscriptionStatus({
-          subscriber_id: subscription.subscriberID,
-          creator_id: subscription.creatorID,
+          subscriber_id: subscription.subscriber_id,
+          creator_id: subscription.creator_id,
+          creator_name: subscription.creator_name,
           status: SUBSCRIPTION_STATUS.REJECTED,
         });
         fetchData();
@@ -58,8 +60,9 @@ export default function ManageSubscription() {
     try {
       if (subscription) {
         await apiBase().subscription().updateSubscriptionStatus({
-          subscriber_id: subscription.subscriberID,
-          creator_id: subscription.creatorID,
+          subscriber_id: subscription.subscriber_id,
+          creator_id: subscription.creator_id,
+          creator_name: subscription.creator_name,
           status: SUBSCRIPTION_STATUS.ACCEPTED,
         });
         fetchData();
@@ -110,14 +113,16 @@ export default function ManageSubscription() {
               'subscriber_id',
               'subscriber_name',
               'creator_id',
+              'creator_name',
               'status',
             ];
 
             const dataContent = [
               i + 1,
-              subscription.subscriberID,
-              subscription.subscriberName,
-              subscription.creatorID,
+              subscription.subscriber_id,
+              subscription.subscriber_name,
+              subscription.creator_id,
+              subscription.creator_name,
               subscription.status,
             ];
             return (
@@ -138,8 +143,7 @@ export default function ManageSubscription() {
         modalContent={
           <div className="flex flex-col gap-4">
             <h2 className="text-left">
-              Edit Subscription for {subscription?.subscriberName} on Creator
-              ID: {subscription?.creatorID}
+              Edit Subscription for {subscription?.subscriber_name} on Creator {subscription?.creator_name}
             </h2>
             <div className="flex justify-between mt-10">
               <div>

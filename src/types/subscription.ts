@@ -1,12 +1,14 @@
 export type IApiBaseSubscription = {
-  creatorID: number;
-  subscriberID: number;
-  subscriberName: string;
+  creator_id: number;
+  creator_name: string;
+  subscriber_id: number;
+  subscriber_name: string;
   status: string;
 };
 
 export type ISubscriptionRequest = {
   creator_id: number;
+  creator_name: string;
   subscriber_id: number;
   status: SUBSCRIPTION_STATUS;
 };
