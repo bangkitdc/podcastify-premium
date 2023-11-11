@@ -23,10 +23,11 @@ export default function ManageSubscription() {
     'Subscriber ID',
     'Subscriber Name',
     'Creator ID',
+    'Creator Name',
     'Status',
     '',
   ];
-  const percentage = [15, 40, 15, 20, 5];
+  const percentage = [10, 30, 10, 30, 10, 5];
 
   // Create modal reference
   const modalManage = useRef('modalManage');
@@ -43,6 +44,7 @@ export default function ManageSubscription() {
         await apiBase().subscription().updateSubscriptionStatus({
           subscriber_id: subscription.subscriberID,
           creator_id: subscription.creatorID,
+          creator_name: subscription.creatorName,
           status: SUBSCRIPTION_STATUS.REJECTED,
         });
         fetchData();
@@ -60,6 +62,7 @@ export default function ManageSubscription() {
         await apiBase().subscription().updateSubscriptionStatus({
           subscriber_id: subscription.subscriberID,
           creator_id: subscription.creatorID,
+          creator_name: subscription.creatorName,
           status: SUBSCRIPTION_STATUS.ACCEPTED,
         });
         fetchData();
@@ -110,6 +113,7 @@ export default function ManageSubscription() {
               'subscriber_id',
               'subscriber_name',
               'creator_id',
+              'creator_name',
               'status',
             ];
 
@@ -118,6 +122,7 @@ export default function ManageSubscription() {
               subscription.subscriberID,
               subscription.subscriberName,
               subscription.creatorID,
+              subscription.creatorName,
               subscription.status,
             ];
             return (
@@ -138,8 +143,7 @@ export default function ManageSubscription() {
         modalContent={
           <div className="flex flex-col gap-4">
             <h2 className="text-left">
-              Edit Subscription for {subscription?.subscriberName} on Creator
-              ID: {subscription?.creatorID}
+              Edit Subscription for {subscription?.subscriberName} on Creator {subscription?.creatorName}
             </h2>
             <div className="flex justify-between mt-10">
               <div>
