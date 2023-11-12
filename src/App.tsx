@@ -15,6 +15,7 @@ import EpisodeDetail from "./pages/creator/EpisodeDetail.tsx";
 const SubscribeReq = lazy(() => import("./pages/admin/SubscribeReq"));
 const Episodes = lazy(() => import("./pages/creator/Episodes"));
 const CreateEpisode = lazy(() => import("./pages/creator/CreateEpisode"));
+const SubscriberList = lazy(() => import("./pages/creator/SubscriberList"));
 const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));
 
@@ -113,6 +114,21 @@ function App() {
           >
             <Suspense fallback={<div>Loading...</div>}>
               <CreateEpisode />
+            </Suspense>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/subscriber"
+        element={
+          <ProtectedRoute
+            isAuth={isAuth}
+            isAdmin={isAdmin}
+            currentUrl={currentUrl}
+          >
+            <Suspense fallback={<div>Loading...</div>}>
+              <SubscriberList />
             </Suspense>
           </ProtectedRoute>
         }

@@ -24,10 +24,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAuth, isAdmin, curren
     // url, [display, iconUrl]
     "/": ["Your Episodes", ICONS_DIR + "episode.svg"],
     "/create-episode": ["Create Episode", ICONS_DIR + "add-circle.svg"],
+    "/subscriber": ["Your Subscribers", ICONS_DIR + "subscriber.svg"],
   };
 
   const adminNavList = {
-    "/": ["Subcription Requests", ICONS_DIR + "episode.svg"],
+    "/": ["Subcription Requests", ICONS_DIR + "subscriber.svg"],
   };
 
   return (
