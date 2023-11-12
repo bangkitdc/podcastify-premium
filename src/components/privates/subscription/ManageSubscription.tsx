@@ -28,6 +28,15 @@ export default function ManageSubscription() {
     '',
   ];
   const percentage = [10, 30, 10, 30, 10, 5];
+  // colsClass = [col-1, col-2, ...];
+  const colsClass = [
+    '',
+    'hidden lg:table-cell',
+    'whitespace-normal',
+    'hidden lg:table-cell',
+    'hidden sm:table-cell',
+    'hidden md:table-cell',
+  ];
 
   // Create modal reference
   const modalManage = useRef('modalManage');
@@ -105,7 +114,11 @@ export default function ManageSubscription() {
         <h1 className="text-center mt-12">No Pending Subscriptions</h1>
       ) : (
         <table className="text-clr-text-secondary">
-          <TablesHeader headers={headers} percentage={percentage} />
+          <TablesHeader
+            headers={headers}
+            percentage={percentage}
+            colsClass={colsClass.slice(1)}
+          />
           {subscriptions.map((subscription, i) => {
             if (subscription.status != SUBSCRIPTION_STATUS.PENDING) return;
             const dataContext = [
@@ -131,6 +144,7 @@ export default function ManageSubscription() {
                 dataContext={dataContext}
                 dataContent={dataContent}
                 onClickManage={() => onDisplayModal(subscription)}
+                colsClass={colsClass}
               />
             );
           })}
@@ -143,7 +157,8 @@ export default function ManageSubscription() {
         modalContent={
           <div className="flex flex-col gap-4">
             <h2 className="text-left">
-              Edit Subscription for {subscription?.subscriber_name} on Creator {subscription?.creator_name}
+              Edit Subscription for {subscription?.subscriber_name} on Creator{' '}
+              {subscription?.creator_name}
             </h2>
             <div className="flex justify-between mt-10">
               <div>
