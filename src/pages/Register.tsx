@@ -4,7 +4,9 @@ import BaseInputText from "@/components/shares/inputs/BaseInputText";
 import apiBase from "@/api";
 import { IApiBaseError } from "@/types/http";
 import { useAuth } from "@/contexts";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addNotification } from "@/redux/notifications/reducer";
 
 export default function Register() {
 
@@ -17,6 +19,8 @@ export default function Register() {
 
   const apiBaseError = apiBase().error<IApiBaseError>();
   const { register } = useAuth();
+
+  const dispatch = useDispatch();
 
   const [errorConfirmPassword, setErrorConfirmPassword] = useState<string>('');
 
@@ -40,23 +44,24 @@ export default function Register() {
       );
     } catch (error) {
       apiBaseError.set(error);
+
+      dispatch(
+        addNotification({
+          message: apiBaseError.getMessage(),
+          type: 'danger',
+        }),
+      );
     }
   };
-
-  useEffect(() => {
-    if (apiBaseError.getMessage()) {
-      // alert(apiBaseError.getMessage());
-    }
-  }, [apiBaseError]);
 
   return (
     <div className="flex flex-col h-screen overflow-x-hidden">
       <div className="px-8 py-0 bg-clr-background-base-one">
-        <h1 className="text-clr-text-primary text-5xl max-md:text-4xl mt-20 mb-16 mx-0 text-center">
+        <h1 className="text-clr-text-primary text-5xl max-md:text-4xl mt-20 mb-16 max-md:mb-10 mx-0 text-center max-md:text-left">
           Become a Podcastify Creator
         </h1>
         <form
-          className="flex flex-col gap-5 w-96 max-md:w-4/5 my-0 mx-auto pb-0"
+          className="flex flex-col gap-5 w-96 max-md:w-full my-0 mx-auto pb-0"
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col gap-4">
@@ -66,7 +71,7 @@ export default function Register() {
               placeholder="Email"
               value={email}
               setValue={setEmail}
-              error={apiBaseError.getErrors("email")?.[0]?.toString()}
+              error={apiBaseError.getErrors('email')?.[0]?.toString()}
             />
 
             <BaseInputText
@@ -75,7 +80,7 @@ export default function Register() {
               placeholder="Username"
               value={username}
               setValue={setUsername}
-              error={apiBaseError.getErrors("username")?.[0]?.toString()}
+              error={apiBaseError.getErrors('username')?.[0]?.toString()}
             />
 
             <BaseInputText
@@ -84,7 +89,7 @@ export default function Register() {
               placeholder="First Name"
               value={firstName}
               setValue={setFirstName}
-              error={apiBaseError.getErrors("first_name")?.[0]?.toString()}
+              error={apiBaseError.getErrors('first_name')?.[0]?.toString()}
             />
 
             <BaseInputText
@@ -93,7 +98,7 @@ export default function Register() {
               placeholder="Last Name"
               value={lastName}
               setValue={setLastName}
-              error={apiBaseError.getErrors("last_name")?.[0]?.toString()}
+              error={apiBaseError.getErrors('last_name')?.[0]?.toString()}
             />
 
             <BaseInputText
@@ -103,7 +108,7 @@ export default function Register() {
               type="password"
               value={password}
               setValue={setPassword}
-              error={apiBaseError.getErrors("password")?.[0]?.toString()}
+              error={apiBaseError.getErrors('password')?.[0]?.toString()}
             />
 
             <BaseInputText
@@ -126,12 +131,12 @@ export default function Register() {
             </div>
           </div>
         </form>
-        <hr className="my-12 mx-[10%] border-r-0 border-b-0 border-l-0 border-t-2 border-solid border-[#292929]" />
-        <div className="text-center mb-14 font-medium">
+        <hr className="my-12 max-md:my-10 mx-[10%] border-r-0 border-b-0 border-l-0 border-t-2 border-solid border-[#292929]" />
+        <div className="text-center mb-14 font-medium max-md:flex max-md:flex-col max-md:gap-2">
           <span className=" text-clr-background-highlight-three">
-            Already have an account?{" "}
+            Already have an account?{' '}
           </span>
-          <Link to={"/login"} className=" text-clr-text-primary underline">
+          <Link to={'/login'} className=" text-clr-text-primary underline hover:text-clr-text-info-hover">
             Login for Podcastify Creators
           </Link>
         </div>

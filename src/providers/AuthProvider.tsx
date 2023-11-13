@@ -17,7 +17,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<IApiBaseUserSelf | null>(null);
 
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  // const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const login = async (
     username: string, 
@@ -56,7 +56,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     if (res.status === "success") {
       api.defaults.headers["Authorization"] = `Bearer ${res.data?.token}`;
       setToken(res.data.token);
-      setIsLoading(false);
+      // setIsLoading(false);
 
       try {
         await self();
@@ -88,7 +88,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     const fetchRefreshToken = async () => {
       if (location.pathname === "/login" || location.pathname === "/register") {
-        setIsLoading(false);
+        // setIsLoading(false);
 
         if (user) {
           navigate("/");
@@ -97,7 +97,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         try {
           await refreshToken();
         } catch (error) {
-          setIsLoading(false);
+          // setIsLoading(false);
           navigate("/login");
         }
       }
@@ -106,9 +106,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     fetchRefreshToken();
   }, []);
 
-  if (isLoading) {
-    return <div></div>
-  }
+  // if (isLoading) {
+  //   return <div></div>
+  // }
 
   return (
     <AuthContext.Provider
