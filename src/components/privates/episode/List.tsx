@@ -64,6 +64,8 @@ export default function ListEpisode() {
   };
 
   const handleCloseModal = () => {
+    setImageFile(null)
+    setAudioFile(null)
     dispatch(close(modalManage.current));
   };
 
@@ -73,28 +75,41 @@ export default function ListEpisode() {
 
   const handleSave = async () => {
     try {
-      if (currentEpisode) {
-        const image_url = imageFile?.name ?? currentEpisode.image_url;
-        const audio_url = audioFile?.name ?? currentEpisode.audio_url;
+      let duration = 0;
 
+      if (currentEpisode) {
+        if (audioFile) {
+          const audioObject = URL.createObjectURL(audioFile[0]);
+          const audioElement = new Audio(audioObject);
+
+          const getAudioDuration = () => {
+            return new Promise((resolve) => {
+              audioElement.addEventListener("loadedmetadata", () => {
+                duration = audioElement.duration;
+                resolve(duration);
+              });
+            });
+          };
+
+          await getAudioDuration();
+        }
         const updatedEpisode = await episode()
           .episode()
           .updateEpisode(
             currentEpisode.episode_id,
             title,
             description,
-            currentEpisode.creator_id,
             currentEpisode.category_id,
             currentEpisode.duration,
-            image_url,
-            audio_url,
+            imageFile,
+            audioFile
           );
 
         setCurrentEpisodes((prevEpisodes) => {
           return prevEpisodes.map((episode) =>
             episode.episode_id === updatedEpisode.data.episode_id
               ? updatedEpisode.data
-              : episode,
+              : episode
           );
         });
 

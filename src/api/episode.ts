@@ -28,26 +28,32 @@ const episode = () => {
   const createEpisode = async (
     title: string,
     description: string,
-    creator_id: number,
     category_id: number,
     duration: number,
-    audio_url: string,
-    image_url?: string
+    imageFile: FileList | null,
+    audioFile: FileList | null,
   ) => {
+    const formdata = new FormData();
+
+    formdata.append('title', title);
+    formdata.append('description', description);
+    formdata.append('category_id', category_id.toString());
+    formdata.append('duration', duration.toString())
+
+    if(audioFile instanceof FileList) {
+      formdata.append('audio_file', audioFile[0])
+    }
+
+    if(imageFile instanceof FileList) {
+      formdata.append('image_file', imageFile[0])
+    }
+
     const response = await api.post<IApiBaseResponse<IApiBaseEpisode>>(
       url.episode,
-      {
-        title,
-        description,
-        creator_id,
-        category_id,
-        duration,
-        image_url,
-        audio_url,
-      },
+      formdata,
       {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multiform/form-data",
         },
       }
     );
@@ -59,32 +65,32 @@ const episode = () => {
     id: number,
     title: string,
     description: string,
-    creator_id: number,
     category_id: number,
     duration: number,
-    image_url: string = "",
-    audio_url: string
+    imageFile: FileList | null,
+    audioFile: FileList | null,
   ) => {
-    if (image_url === undefined) {
-      image_url = "";
+    const formdata = new FormData();
+
+    formdata.append('title', title);
+    formdata.append('description', description);
+    formdata.append('category_id', category_id.toString());
+    formdata.append('duration', duration.toString())
+
+    if(audioFile instanceof FileList) {
+      formdata.append('audio_file', audioFile[0])
     }
 
-    console.log(image_url);
+    if(imageFile instanceof FileList) {
+      formdata.append('image_file', imageFile[0])
+    }
 
     const response = await api.post<IApiBaseResponse<IApiBaseEpisode>>(
       url.episode + "/" + id,
-      {
-        title,
-        description,
-        creator_id,
-        category_id,
-        duration,
-        image_url,
-        audio_url,
-      },
+      formdata,
       {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multiform/form-data",
         },
       }
     );

@@ -10,7 +10,7 @@ export default function BaseFileUploader({
   id: string;
   type?: string;
   label: string;
-  value: File | null;
+  value: FileList | null;
   setValue: (event: ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (
@@ -24,10 +24,10 @@ export default function BaseFileUploader({
         >
           Choose File
         </label>
-        <span className="text-[13px] font-thin text-clr-text-primary-darken">{value ? value.name : "No file chosen"}</span>
+        <span className="text-[13px] font-thin text-clr-text-primary-darken">{value ? value[0].name : "No file chosen"}</span>
       </div>
       {type === "image" && value ? (
-        <img className="w-64 h-auto" src={URL.createObjectURL(value)} alt="" />
+        <img className="w-64 h-auto" src={URL.createObjectURL(value[0])} alt="" />
       ) : null}
     </div>
   );
