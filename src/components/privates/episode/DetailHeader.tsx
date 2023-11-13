@@ -29,11 +29,13 @@ export default function DetailHeader({
 
   return (
     <div className="flex flex-col items-center gap-3">
-      <img
-        className=" w-48 rounded-2xl"
-        src={image_url ? image_url : IMAGES_DIR + "episode-template.png"}
-        alt=""
-      />
+      <div className=" w-48 h-48">
+        <img
+          className=" w-full h-full rounded-2xl object-cover"
+          src={image_url ? image_url : IMAGES_DIR + "episode-template.png"}
+          alt=""
+        />
+      </div>
       <h1>{title}</h1>
       <p>{likes} Likes</p>
       <p>

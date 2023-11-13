@@ -25,6 +25,18 @@ const episode = () => {
     return response.data;
   };
 
+  const episodeImage = async (id: string) => {
+    const response = await api.get(
+      url.episode + "/downloadImage" + id,
+      {
+        responseType: 'arraybuffer',
+      }
+    );
+    console.log(response.data);
+    
+    return response
+  }
+
   const createEpisode = async (
     title: string,
     description: string,
@@ -109,6 +121,7 @@ const episode = () => {
   return {
     episodes,
     episodeDetail,
+    episodeImage,
     createEpisode,
     updateEpisode,
     deleteEpisode,

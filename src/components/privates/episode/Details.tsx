@@ -14,6 +14,19 @@ export default function Details() {
         const episodeData = await episode()
           .episode()
           .episodeDetail(episode_id ?? "");
+
+        const episodeImage = await episode()
+        .episode()
+        .episodeImage(episode_id ?? "")
+
+        if(episodeImage){
+          const base64 = btoa(
+            new Uint8Array(episodeImage.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
+          );
+    
+          const imageDataUrl = `data:${episodeImage.headers['content-type']};base64,${base64}`;
+          episodeData.data.image_url = imageDataUrl;
+        }
         setEpisodeDetail(episodeData.data);
       } catch (error) {
         console.error(error);
