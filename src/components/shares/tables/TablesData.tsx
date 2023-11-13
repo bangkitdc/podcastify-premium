@@ -5,11 +5,13 @@ function TablesData({
   dataContent,
   onClickManage,
   onNavigate,
+  colsClass,
 }: {
   dataContext: string[];
   dataContent: (string | number)[];
   onClickManage?: () => void;
   onNavigate?: () => void;
+  colsClass?: string[];
 }) {
   const handleClickManage = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -28,7 +30,7 @@ function TablesData({
         {dataContent.map((d, index) => {
           return (
             <>
-              <td key={dataContext[index]}>
+              <td className={colsClass ? colsClass[index] : ''} key={dataContext[index]}>
                 <p className=" group-hover:text-clr-text-primary font-thin">
                   {d}
                 </p>

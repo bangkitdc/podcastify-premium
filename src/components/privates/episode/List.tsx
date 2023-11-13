@@ -1,22 +1,22 @@
-import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { addModal, close, show } from "@/redux/modals/reducer";
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addModal, close, show } from '@/redux/modals/reducer';
 
-import PrimaryModal from "@/components/shares/modals/Primary";
-import BaseFileUploader from "@/components/shares/uploads/Base";
+import PrimaryModal from '@/components/shares/modals/Primary';
+import BaseFileUploader from '@/components/shares/uploads/Base';
 
-import useInput from "@/hooks/useInput";
-import useFile from "@/hooks/useFile";
-import ModalInputText from "@/components/shares/inputs/ModalInputText";
-import { useNavigate } from "react-router-dom";
+import useInput from '@/hooks/useInput';
+import useFile from '@/hooks/useFile';
+import ModalInputText from '@/components/shares/inputs/ModalInputText';
+import { useNavigate } from 'react-router-dom';
 
-import episode from "@/api";
-import apiBase from "@/api";
-import { IApiBaseError } from "@/types/http";
-import { addNotification } from "@/redux/notifications/reducer";
-import { IApiBaseEpisode } from "@/types/episode";
-import TablesHeader from "@/components/shares/tables/TablesHeader";
-import TablesData from "@/components/shares/tables/TablesData";
+import episode from '@/api';
+import apiBase from '@/api';
+import { IApiBaseError } from '@/types/http';
+import { addNotification } from '@/redux/notifications/reducer';
+import { IApiBaseEpisode } from '@/types/episode';
+import TablesHeader from '@/components/shares/tables/TablesHeader';
+import TablesData from '@/components/shares/tables/TablesData';
 
 export default function ListEpisode() {
   const [currentEpisodes, setCurrentEpisodes] = useState<IApiBaseEpisode[]>([]);
@@ -39,7 +39,7 @@ export default function ListEpisode() {
   const navigate = useNavigate();
 
   // Create modal reference
-  const modalManage = useRef("modalManage");
+  const modalManage = useRef('modalManage');
   dispatch(addModal(modalManage.current));
 
   // const modalDelete = useRef("modalDelete");
@@ -50,7 +50,7 @@ export default function ListEpisode() {
     try {
       const episodeData = await episode()
         .episode()
-        .episodeDetail("/" + episode_id ?? "");
+        .episodeDetail('/' + episode_id ?? '');
 
       setCurrentEpisode(episodeData.data);
 
@@ -115,12 +115,12 @@ export default function ListEpisode() {
 
         handleCloseModal();
 
-        if (updatedEpisode.status === "success") {
+        if (updatedEpisode.status === 'success') {
           dispatch(
             addNotification({
               message: updatedEpisode.message,
-              type: "success",
-            })
+              type: 'success',
+            }),
           );
         }
       }
@@ -130,8 +130,8 @@ export default function ListEpisode() {
       dispatch(
         addNotification({
           message: apiBaseError.getMessage(),
-          type: "danger",
-        })
+          type: 'danger',
+        }),
       );
     }
   };
@@ -143,18 +143,18 @@ export default function ListEpisode() {
         .deleteEpisode(currentEpisode?.episode_id ?? -1);
 
       const updatedEpisodes = currentEpisodes.filter(
-        (episode) => episode.episode_id !== deletedEpisode.data.episode_id
+        (episode) => episode.episode_id !== deletedEpisode.data.episode_id,
       );
 
       setCurrentEpisodes(updatedEpisodes);
       handleCloseModal();
 
-      if (deletedEpisode.status === "success") {
+      if (deletedEpisode.status === 'success') {
         dispatch(
           addNotification({
             message: deletedEpisode.message,
-            type: "success",
-          })
+            type: 'success',
+          }),
         );
       }
       console.log(currentEpisodes);
@@ -164,8 +164,8 @@ export default function ListEpisode() {
       dispatch(
         addNotification({
           message: apiBaseError.getMessage(),
-          type: "danger",
-        })
+          type: 'danger',
+        }),
       );
     }
   };
@@ -177,29 +177,34 @@ export default function ListEpisode() {
 
     const remainingSecondsFinal = remainingSeconds % 60;
 
-    const formattedHours = String(hours).padStart(2, "0");
-    const formattedMinutes = String(minutes).padStart(2, "0");
-    const formattedSeconds = String(remainingSecondsFinal).padStart(2, "0");
+    const formattedHours = String(hours).padStart(2, '0');
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(remainingSecondsFinal).padStart(2, '0');
 
     return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
   }
 
-  const headers = ["Title", "Duration", ""];
+  const headers = ['Title', 'Duration', ''];
+  const colsClass = ['', 'whitespace-normal', 'hidden md:table-cell'];
   const percentage = [50, 40, 5];
 
   // TODO:dont use like this
   // make it fetch every open/ empty
-  const [title, setTitle] = useInput("");
-  const [description, setDescription] = useInput("");
+  const [title, setTitle] = useInput('');
+  const [description, setDescription] = useInput('');
   const [imageFile, setImageFile] = useFile(null);
   const [audioFile, setAudioFile] = useFile(null);
 
   return (
     <>
       <table className=" text-clr-text-secondary">
-        <TablesHeader headers={headers} percentage={percentage} />
+        <TablesHeader
+          headers={headers}
+          percentage={percentage}
+          colsClass={colsClass.slice(1)}
+        />
         {currentEpisodes.map((episode, index) => {
-          const dataContext = ["num", "title", "duration"];
+          const dataContext = ['num', 'title', 'duration'];
           const duration = formatDuration(episode.duration);
 
           const dataContent = [index + 1, episode.title, duration];
@@ -212,6 +217,7 @@ export default function ListEpisode() {
                 handleOpenModal(episode.episode_id.toString())
               }
               onNavigate={() => onNavigate(episode.episode_id.toString())}
+              colsClass={colsClass}
             />
           );
         })}
@@ -229,7 +235,7 @@ export default function ListEpisode() {
                 placeholder="Title"
                 value={title}
                 setValue={setTitle}
-                error={apiBaseError.getErrors("title")?.[0]?.toString()}
+                error={apiBaseError.getErrors('title')?.[0]?.toString()}
               />
               <ModalInputText
                 id="episode-description"
@@ -237,7 +243,7 @@ export default function ListEpisode() {
                 placeholder="Description"
                 value={description}
                 setValue={setDescription}
-                error={apiBaseError.getErrors("description")?.[0]?.toString()}
+                error={apiBaseError.getErrors('description')?.[0]?.toString()}
               />
               <BaseFileUploader
                 id="episode-poster-upload"
