@@ -22,7 +22,7 @@ export default function PrimaryNotification() {
 
   return show ? (
     <div
-      className={`fixed top-10 left-1/2 transform -translate-x-1/2 rounded-lg py-5 px-6 text-sm font-thin z-50 transition-all shadow-lg bg-clr-text-${notification.type}`}
+      className={`fixed top-10 max-sm:top-6 left-1/2 transform -translate-x-1/2 max-sm:w-5/6 text-center rounded-lg py-5 px-6 text-sm font-thin z-50 transition-all shadow-lg bg-clr-text-${notification.type}`}
     >
       <div>
         {notification.message}

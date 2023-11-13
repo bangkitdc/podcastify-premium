@@ -1,23 +1,24 @@
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-// import Register from "./pages/Register.tsx";
-// import Login from "./pages/Login.tsx";
-// import Episodes from "./pages/creator/Episodes.tsx";
-// import CreateEpisode from "./pages/creator/CreateEpisode.tsx";
-// // import CreatePodcast from "./pages/creator/CreatePodcast.tsx";
-// import SubscribeReq from "./pages/admin/SubscribeReq.tsx";
-import support from "./api/support.ts";
+import support from "@/api/support.ts";
 import { useAuth } from "./contexts/index.ts";
 import { jwtDecode } from "jwt-decode";
 import ProtectedRoute from "./ProtectedRoute.tsx";
 import { useEffect, lazy, Suspense } from "react";
-import EpisodeDetail from "./pages/creator/EpisodeDetail.tsx";
+import EpisodeDetail from "@/pages/creator/EpisodeDetail.tsx";
+import Loading from "@/components/shares/loadings/Primary.tsx";
 
-const SubscribeReq = lazy(() => import("./pages/admin/SubscribeReq"));
-const Episodes = lazy(() => import("./pages/creator/Episodes"));
-const CreateEpisode = lazy(() => import("./pages/creator/CreateEpisode"));
-const SubscriberList = lazy(() => import("./pages/creator/SubscriberList"));
-const Login = lazy(() => import("./pages/Login"));
-const Register = lazy(() => import("./pages/Register"));
+function delay<T>(promise: Promise<T>): Promise<T> {
+  return new Promise<T>((resolve) => {
+    setTimeout(resolve, 1000);
+  }).then(() => promise);
+}
+
+const SubscribeReq = lazy(() => delay(import("./pages/admin/SubscribeReq")));
+const Episodes = lazy(() => delay(import("./pages/creator/Episodes")));
+const CreateEpisode = lazy(() => delay(import("./pages/creator/CreateEpisode")));
+const SubscriberList = lazy(() => delay(import("./pages/creator/SubscriberList")));
+const Login = lazy(() => delay(import("./pages/Login")));
+const Register = lazy(() => delay(import("./pages/Register")));
 
 function App() {
   const { user, token, refreshToken } = useAuth();
@@ -71,11 +72,11 @@ function App() {
             currentUrl={currentUrl}
           >
             {isAdmin ? (
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<Loading />}>
                 <SubscribeReq />
               </Suspense>
             ) : (
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<Loading />}>
                 <Episodes />
               </Suspense>
             )}
@@ -92,11 +93,11 @@ function App() {
             currentUrl={currentUrl}
           >
             {isAdmin ? (
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<Loading />}>
                 <SubscribeReq />
               </Suspense>
             ) : (
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<Loading />}>
                 <EpisodeDetail />
               </Suspense>
             )}
@@ -112,7 +113,7 @@ function App() {
             isAdmin={isAdmin}
             currentUrl={currentUrl}
           >
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loading />}>
               <CreateEpisode />
             </Suspense>
           </ProtectedRoute>
@@ -127,7 +128,7 @@ function App() {
             isAdmin={isAdmin}
             currentUrl={currentUrl}
           >
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loading />}>
               <SubscriberList />
             </Suspense>
           </ProtectedRoute>
@@ -137,7 +138,7 @@ function App() {
       <Route
         path="/login"
         element={
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loading />}>
             <Login />
           </Suspense>
         }
@@ -145,7 +146,7 @@ function App() {
       <Route
         path="/register"
         element={
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loading />}>
             <Register />
           </Suspense>
         }
