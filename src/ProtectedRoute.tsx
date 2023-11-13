@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import Sidebar from "./components/shares/navbars/Sidebar";
 import { ICONS_DIR } from "./config/config";
 import Topbar from "./components/shares/navbars/Topbar";
@@ -31,6 +31,14 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAuth, isAdmin, curren
     "/": ["Subcription Requests", ICONS_DIR + "subscriber.svg"],
   };
 
+  const [isLtMd, setIsLtMd] = useState(window.innerWidth < 1024);
+
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      setIsLtMd(window.innerWidth < 1024);
+    })
+  }, [])
+
   return (
     <>
       <div className="grid grid-cols-4 grid-rows-6 h-screen gap-2 overflow-hidden p-2">
@@ -40,7 +48,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAuth, isAdmin, curren
           <Sidebar navList={creatorNavList} currentUrl={currentUrl} />
         )}
         {/* <Sidebar navList={navList} currentUrl={currentUrl} /> */}
-        <div className="flex flex-col relative col-span-3 row-span-6 overflow-y-scroll rounded-lg bg-clr-background-base-two">
+        <div className={`flex flex-col relative row-span-6 overflow-y-scroll rounded-lg bg-clr-background-base-two ${isLtMd ? 'col-span-4' : 'col-span-3'}`}>
           {/* Gradient */}
           {/* <div className=" absolute h-[50vh] bg-gradient-to-b from-clr-text-primary via-clr-background-highlight-three to-clr-background-base-two w-full z-0"></div> */}
           <Topbar />
