@@ -6,7 +6,7 @@ import PrimaryModal from '@/components/shares/modals/Primary';
 import BaseFileUploader from '@/components/shares/uploads/Base';
 
 import useInput from '@/hooks/useInput';
-import useFile from '@/hooks/useFile';
+import useAudioFile from '@/hooks/useAudioFile';
 import ModalInputText from '@/components/shares/inputs/ModalInputText';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,12 +19,13 @@ import TablesHeader from '@/components/shares/tables/TablesHeader';
 import TablesData from '@/components/shares/tables/TablesData';
 import { IApiBaseCategory } from '@/types/category';
 import BaseSelect from '@/components/shares/inputs/BaseSelect';
+import useImageFile from '@/hooks/useImageFile';
 
 export default function ListEpisode() {
   const [title, setTitle] = useInput('');
   const [description, setDescription] = useInput('');
-  const [imageFile, setImageFile] = useFile(null);
-  const [audioFile, setAudioFile] = useFile(null);
+  const [imageFile, setImageFile] = useImageFile(null);
+  const [audioFile, setAudioFile] = useAudioFile(null);
   const [currentEpisodes, setCurrentEpisodes] = useState<IApiBaseEpisode[]>([]);
   const [currentEpisode, setCurrentEpisode] = useState<IApiBaseEpisode>();
   const [categories, setCategories] = useState<IApiBaseCategory[]>();

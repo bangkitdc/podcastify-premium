@@ -1,7 +1,7 @@
 import AddButton from '../../shares/buttons/AddButton';
 import BaseInputText from '../../shares/inputs/BaseInputText';
 import BaseFileUploader from '../../shares/uploads/Base';
-import useFile from '../../../hooks/useFile';
+import useAudioFile from '../../../hooks/useAudioFile';
 import useInput from '../../../hooks/useInput';
 
 import apiBase from '@/api';
@@ -12,14 +12,15 @@ import { addNotification } from '@/redux/notifications/reducer';
 import { FormEvent, useEffect, useState } from 'react';
 import BaseSelect from '@/components/shares/inputs/BaseSelect';
 import { IApiBaseCategory } from '@/types/category';
+import useImageFile from '@/hooks/useImageFile';
 
 export default function CreateFormEpisode() {
   const [title, setTitle] = useInput('');
   const [description, setDescription] = useInput('');
   const [categories, setCategories] = useState<IApiBaseCategory[]>();
   const [category, selectCategory] = useInput('');
-  const [imageFile, setImageFile] = useFile(null);
-  const [audioFile, setAudioFile] = useFile(null);
+  const [imageFile, setImageFile] = useImageFile(null);
+  const [audioFile, setAudioFile] = useAudioFile(null);
 
   const apiBaseError = apiBase().error<IApiBaseError>();
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ export default function CreateFormEpisode() {
     };
 
     fetchCategory();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -71,7 +72,7 @@ export default function CreateFormEpisode() {
       const selectedCategory = categories?.find(
         (c) => c.name === category,
       )?.category_id;
-      
+
       const response = await episode()
         .episode()
         .createEpisode(
