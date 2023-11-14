@@ -90,6 +90,7 @@ function Sidebar({
                     className={`flex justify-start gap-6 items-center cursor-pointer p-2 font-bold ${
                       currentUrl === url ? 'opacity-100' : 'opacity-70'
                     }`}
+                    onClick={toggleSidebar}
                   >
                     <img src={iconUrl} className="overflow-hidden" />
                     <div>{displayName}</div>
