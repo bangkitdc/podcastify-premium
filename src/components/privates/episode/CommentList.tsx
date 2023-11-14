@@ -1,14 +1,23 @@
-import Comment from "./Comment"
+import { IEpisodeCommentLessData } from '@/types/episode';
+import Comment from './Comment';
 
-export default function CommentList() {
-  const array = [1,2,3,4,5]
-  return(
+export default function CommentList({
+  comments,
+}: {
+  comments: IEpisodeCommentLessData[] | undefined;
+}) {
+  if (comments) {
+    return (
+      <>
+        {comments.map((comment) => (
+          <Comment comment={comment} />
+        ))}
+      </>
+    );
+  }
+  return (
     <>
-    {
-      array.map(() => (
-        <Comment/>
-      ))
-    }
+      <h3 className=" text-center">No Comment Available</h3>
     </>
-  )
+  );
 }

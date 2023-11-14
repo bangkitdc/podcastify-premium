@@ -9,7 +9,7 @@ export default function DetailHeader({
 }: {
   image_url: string;
   title: string;
-  likes: string;
+  likes: number | undefined;
   duration: number;
   description: string;
 }) {
@@ -37,7 +37,7 @@ export default function DetailHeader({
         />
       </div>
       <h1>{title}</h1>
-      <p>{likes} Likes</p>
+      <p>{likes ?? 0} Likes</p>
       <p>
         {hours
           ? hours + " Hours " + minutes + " Minutes"
