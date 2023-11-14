@@ -3,6 +3,7 @@ import user from './user';
 import error from './error';
 import episode from './episode';
 import subscription from './subscription';
+import category from './category';
 
 // const tryCatchWrapper = (module:any) => {
 //   for (const key in module) {
@@ -40,6 +41,7 @@ const apiBase = () => {
     auth,
     user,
     episode,
+    category,
     subscription,
     error,
   };
