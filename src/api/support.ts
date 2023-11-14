@@ -14,6 +14,7 @@ const support = () => {
     logout: '/logout',
 
     episode: '/episode',
+    category: '/category',
 
     subscription: '/subscription',
 

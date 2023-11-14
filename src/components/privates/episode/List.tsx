@@ -17,15 +17,25 @@ import { addNotification } from '@/redux/notifications/reducer';
 import { IApiBaseEpisode } from '@/types/episode';
 import TablesHeader from '@/components/shares/tables/TablesHeader';
 import TablesData from '@/components/shares/tables/TablesData';
+import { IApiBaseCategory } from '@/types/category';
+import BaseSelect from '@/components/shares/inputs/BaseSelect';
 
 export default function ListEpisode() {
+  const [title, setTitle] = useInput('');
+  const [description, setDescription] = useInput('');
+  const [imageFile, setImageFile] = useFile(null);
+  const [audioFile, setAudioFile] = useFile(null);
   const [currentEpisodes, setCurrentEpisodes] = useState<IApiBaseEpisode[]>([]);
   const [currentEpisode, setCurrentEpisode] = useState<IApiBaseEpisode>();
+  const [categories, setCategories] = useState<IApiBaseCategory[]>();
+  const [category, selectCategory] = useInput('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const episodesData = await episode().episode().episodes();
+        const categoryData = await apiBase().category().categories();
+        setCategories(categoryData.data);
         setCurrentEpisodes(episodesData.data);
       } catch (error) {
         console.error(error);
@@ -56,6 +66,10 @@ export default function ListEpisode() {
 
       setTitle(episodeData.data.title);
       setDescription(episodeData.data.description);
+      selectCategory(
+        categories?.find((c) => c.name === episodeData.data.category.name)
+          ?.name ?? '',
+      );
     } catch (error) {
       console.error(error);
     }
@@ -64,8 +78,8 @@ export default function ListEpisode() {
   };
 
   const handleCloseModal = () => {
-    setImageFile(null)
-    setAudioFile(null)
+    setImageFile(null);
+    setAudioFile(null);
     dispatch(close(modalManage.current));
   };
 
@@ -84,7 +98,7 @@ export default function ListEpisode() {
 
           const getAudioDuration = () => {
             return new Promise((resolve) => {
-              audioElement.addEventListener("loadedmetadata", () => {
+              audioElement.addEventListener('loadedmetadata', () => {
                 duration = audioElement.duration;
                 resolve(duration);
               });
@@ -93,23 +107,28 @@ export default function ListEpisode() {
 
           await getAudioDuration();
         }
+
+        const selectedCategory = categories?.find(
+          (c) => c.name === category,
+        )?.category_id;
+
         const updatedEpisode = await episode()
           .episode()
           .updateEpisode(
             currentEpisode.episode_id,
             title,
             description,
-            currentEpisode.category_id,
-            currentEpisode.duration,
+            selectedCategory ?? 0,
+            duration ? duration : currentEpisode.duration,
             imageFile,
-            audioFile
+            audioFile,
           );
 
         setCurrentEpisodes((prevEpisodes) => {
           return prevEpisodes.map((episode) =>
             episode.episode_id === updatedEpisode.data.episode_id
               ? updatedEpisode.data
-              : episode
+              : episode,
           );
         });
 
@@ -188,13 +207,12 @@ export default function ListEpisode() {
   const colsClass = ['', 'whitespace-normal', 'hidden md:table-cell'];
   const percentage = [50, 40, 5];
 
-  // TODO:dont use like this
-  // make it fetch every open/ empty
-  const [title, setTitle] = useInput('');
-  const [description, setDescription] = useInput('');
-  const [imageFile, setImageFile] = useFile(null);
-  const [audioFile, setAudioFile] = useFile(null);
-
+  const categoriesOpt: string[] = [];
+  if (categories) {
+    categories.forEach((c) => {
+      categoriesOpt.push(c.name);
+    });
+  }
   return (
     <>
       <table className=" text-clr-text-secondary">
@@ -244,6 +262,13 @@ export default function ListEpisode() {
                 value={description}
                 setValue={setDescription}
                 error={apiBaseError.getErrors('description')?.[0]?.toString()}
+              />
+              <BaseSelect
+                options={categoriesOpt}
+                label="Select Category"
+                id="episode-category-input"
+                value={category}
+                setValue={selectCategory}
               />
               <BaseFileUploader
                 id="episode-poster-upload"
