@@ -87,20 +87,20 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
   useEffect(() => {
     const fetchRefreshToken = async () => {
-      if (location.pathname === "/login" || location.pathname === "/register") {
-        // setIsLoading(false);
+      // if (location.pathname === "/login" || location.pathname === "/register") {
+      //   // setIsLoading(false);
 
-        if (user) {
-          navigate("/");
-        }
-      } else {
+      //   if (user) {
+      //     navigate("/");
+      //   }
+      // } else {
         try {
           await refreshToken();
         } catch (error) {
           // setIsLoading(false);
           navigate("/login");
         }
-      }
+      // } 
     };
 
     fetchRefreshToken();

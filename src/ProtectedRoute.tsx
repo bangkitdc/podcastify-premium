@@ -1,25 +1,15 @@
-import { useNavigate } from "react-router-dom";
 import { ReactNode, useEffect, useState } from "react";
 import Sidebar from "./components/shares/navbars/Sidebar";
 import { ICONS_DIR } from "./config/config";
 import Topbar from "./components/shares/navbars/Topbar";
 
 interface ProtectedRouteProps {
-  isAuth: boolean;
   isAdmin: boolean;
   currentUrl: string;
   children: ReactNode;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAuth, isAdmin, currentUrl, children }) => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!isAuth) {
-      navigate("/login");
-    }
-  }, [navigate, isAuth]);
-
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAdmin, currentUrl, children }) => {
   const creatorNavList = {
     // url, [display, iconUrl]
     "/": ["Your Episodes", ICONS_DIR + "episode.svg"],
@@ -52,7 +42,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAuth, isAdmin, curren
           {/* Gradient */}
           {/* <div className=" absolute h-[50vh] bg-gradient-to-b from-clr-text-primary via-clr-background-highlight-three to-clr-background-base-two w-full z-0"></div> */}
           <Topbar />
-          <div className="flex-1 z-[1] py-0 px-6">
+          <div className="flex-1 py-0 px-6">
             {/* {isAdmin ? (
               <Route path="/" element={<SubscribeReq />} />
             ) : (
@@ -62,7 +52,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAuth, isAdmin, curren
             <Route path="/podcasts" element={<Podcasts />} />
             <Route path="/create-episode" element={<CreateEpisode />} />
             <Route path="/create-podcast" element={<CreatePodcast />} /> */}
-            {/* <Route path="/*" /> */}
+            {/* <Route path="/*" /> */} 
             {/* TODO: Error page */}
             {children}
           </div>

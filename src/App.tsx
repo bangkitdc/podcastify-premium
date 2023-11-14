@@ -67,7 +67,6 @@ function App() {
         path="/"
         element={
           <ProtectedRoute
-            isAuth={isAuth}
             isAdmin={isAdmin}
             currentUrl={currentUrl}
           >
@@ -88,7 +87,6 @@ function App() {
         path="/:id"
         element={
           <ProtectedRoute
-            isAuth={isAuth}
             isAdmin={isAdmin}
             currentUrl={currentUrl}
           >
@@ -109,7 +107,6 @@ function App() {
         path="/create-episode"
         element={
           <ProtectedRoute
-            isAuth={isAuth}
             isAdmin={isAdmin}
             currentUrl={currentUrl}
           >
@@ -124,7 +121,6 @@ function App() {
         path="/subscriber"
         element={
           <ProtectedRoute
-            isAuth={isAuth}
             isAdmin={isAdmin}
             currentUrl={currentUrl}
           >
