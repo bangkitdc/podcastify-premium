@@ -64,7 +64,7 @@ export default function BaseInputText({
 
         {needEye && (
           <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-            <button type="button" onClick={togglePasswordVisibility}>
+            <button type="button" onClick={togglePasswordVisibility} tabIndex={-1}>
               <img
                 className="w-5 h-5"
                 src={`${ICONS_DIR}${
