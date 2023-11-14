@@ -56,7 +56,7 @@ function Sidebar({
       ) : null}
       {(isLtMd && isSidebarOpen) || !isLtMd ? (
         <div
-          className={`flex flex-col rounded-lg gap-2 col-span-1 row-span-6 font-medium justify-between ${
+          className={`flex flex-col rounded-lg col-span-1 row-span-6 font-medium justify-between ${
             isLtMd
               ? 'fixed inset-y-0 left-0 z-10 w-fit pt-12 pb-4 pl-4 pr-8 bg-clr-background-base-one'
               : 'px-2 py-4 bg-clr-background-base-two'
@@ -70,42 +70,40 @@ function Sidebar({
                   : ''
               }`}
             ></div>
-            {isLtMd ? (
-              <button
-                onClick={toggleSidebar}
-                className="absolute right-4 top-4 z-10"
-              >
-                <img
-                  src="/assets/icons/close.svg"
-                  className="overflow-hidden"
-                />
-              </button>
-            ) : null}
-            {Object.entries(navList).map(
-              ([url, [displayName, iconUrl]], index) => (
-                <Link
-                  key={index}
-                  to={url}
-                  className={`flex justify-start gap-6 items-center cursor-pointer py-2 px-2 font-bold ${
-                    currentUrl === url ? 'opacity-100' : 'opacity-70'
-                  }`}
+            <div className="flex flex-col gap-2">
+              {isLtMd ? (
+                <button
+                  onClick={toggleSidebar}
+                  className="absolute right-4 top-4 z-10"
                 >
-                  <img src={iconUrl} className="overflow-hidden" />
-                  <div>{displayName}</div>
-                </Link>
-              ),
-            )}
+                  <img
+                    src="/assets/icons/close.svg"
+                    className="overflow-hidden"
+                  />
+                </button>
+              ) : null}
+              {Object.entries(navList).map(
+                ([url, [displayName, iconUrl]], index) => (
+                  <Link
+                    key={index}
+                    to={url}
+                    className={`flex justify-start gap-6 items-center cursor-pointer p-2 font-bold ${
+                      currentUrl === url ? 'opacity-100' : 'opacity-70'
+                    }`}
+                  >
+                    <img src={iconUrl} className="overflow-hidden" />
+                    <div>{displayName}</div>
+                  </Link>
+                ),
+              )}
+            </div>
           </div>
           <div>
             <div
-              className="flex items-center gap-6 opacity-70 hover:opacity-100 cursor-pointer"
+              className="flex items-center gap-6 opacity-70 hover:opacity-100 cursor-pointer p-2"
               onClick={handleLogout}
             >
-              <img
-                className="h-8 transform scale-x-[-1]"
-                src={ICONS_DIR + 'logout.svg'}
-                alt=""
-              />
+              <img src={ICONS_DIR + 'logout.svg'} alt="" />
               <p>Logout</p>
             </div>
           </div>
