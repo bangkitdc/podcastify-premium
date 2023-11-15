@@ -10,7 +10,7 @@ export default function Comment({
     <div className=" grid grid-cols-10 grid-rows-2 pb-9">
       <div className=" flex items-center justify-center">
         <img
-          className=" w-8 rounded-full col-span-1 row-span-2"
+          className=" w-8 rounded-full col-span-1 row-span-2 max-ipad:w-5"
           src={ICONS_DIR + 'user.svg'}
           alt=""
         />
