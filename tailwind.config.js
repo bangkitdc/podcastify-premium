@@ -50,6 +50,10 @@ export default {
         'input-error': '0 0 0 1px #f15e6c',
         'input-focus-error': '0 0 0 1.5px #f15e6c',
       },
+      screens: {
+        'ipad': '820px',
+        'iphone': '375px'
+      }
     },
   },
   plugins: [],

@@ -204,8 +204,8 @@ export default function ListEpisode() {
     return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
   }
 
-  const headers = ['Title', 'Duration', ''];
-  const colsClass = ['', 'whitespace-normal', 'hidden md:table-cell'];
+  const headers = ['Title', 'Duration'];
+  const colsClass = ['', '', 'hidden md:table-cell'];
   const percentage = [50, 40, 5];
 
   const categoriesOpt: string[] = [];
@@ -216,11 +216,12 @@ export default function ListEpisode() {
   }
   return (
     <>
-      <table className=" text-clr-text-secondary">
+      <table className=" text-clr-text-secondary table-fixed">
         <TablesHeader
           headers={headers}
           percentage={percentage}
           colsClass={colsClass.slice(1)}
+          manage={true}
         />
         {currentEpisodes.map((episode, index) => {
           const dataContext = ['num', 'title', 'duration'];
