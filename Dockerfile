@@ -9,4 +9,6 @@ COPY . ./
 
 EXPOSE 5173
 
+RUN npx tailwindcss init
+
 CMD [ "npm", "run", "dev" ]
