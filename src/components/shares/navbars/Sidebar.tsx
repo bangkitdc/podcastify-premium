@@ -1,7 +1,9 @@
 import apiBase from '@/api';
 import { ICONS_DIR } from '@/config/config';
 import { useAuth } from '@/contexts';
+import { addNotification } from '@/redux/notifications/reducer';
 import { FormEvent, useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 function Sidebar({
@@ -31,6 +33,8 @@ function Sidebar({
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const dispatch = useDispatch();
+
   const handleLogout = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -38,12 +42,13 @@ function Sidebar({
       await logout();
     } catch (error) {
       apiBaseError.set(error);
-      if (apiBaseError.getMessage()) {
-        // console.log(apiBaseError.message);
-        // TODO: notification handle
 
-        alert(apiBaseError.getMessage());
-      }
+      dispatch(
+        addNotification({
+          message: apiBaseError.getMessage(),
+          type: 'danger',
+        }),
+      );
     }
   };
 

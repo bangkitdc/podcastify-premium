@@ -1,12 +1,13 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { IApiBaseResponse } from '@/types/http';
-import support from './support';
+import { api, support } from './support';
 import {
   IApiBaseSubscription,
   ISubscriptionRequest,
 } from '@/types/subscription';
 
 const subscription = () => {
-  const { api, apiUrl } = support();
+  const { apiUrl } = support();
 
   const url = {
     subscription: apiUrl.subscription,

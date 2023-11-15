@@ -1,9 +1,16 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { IApiBaseAuthLogin, IApiBaseAuthRegister } from '@/types/auth';
-import support from './support';
+import { 
+  api, 
+  support } from './support';
 import { IApiBaseResponse } from '@/types/http';
+// import { useAPI } from '@/contexts';
 
 const auth = () => {
-  const { api, apiUrl } = support();
+  const { apiUrl } = support();
+
+  // const { api } = useAPI();
+
   const url = {
     login: apiUrl.login,
     register: apiUrl.register,
@@ -57,20 +64,18 @@ const auth = () => {
   }
 
   const refreshToken = async () => {
-    // try {
-      const res = await api.post<IApiBaseResponse<IApiBaseAuthLogin>>(
-        url.refreshToken,
-        {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-      );
+    const res = await api.post<IApiBaseResponse<IApiBaseAuthLogin>>(
+      url.refreshToken,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      }
+    );
 
     return res.data;
-    // } catch (error) {
-    //   // Handled by error.ts
-    // }
   }
 
   const logout = async () => {

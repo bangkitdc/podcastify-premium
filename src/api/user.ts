@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { IApiBaseUserSelf } from "@/types/user";
-import support from "./support";
+import { api, support } from "./support";
 import { IApiBaseResponse } from "@/types/http";
 
 const auth = () => {
-  const { api, apiUrl } = support();
+  const { apiUrl } = support();
+
   const url = {
     self: apiUrl.self
   }

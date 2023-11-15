@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { IApiBaseResponse } from "@/types/http";
-import support from "./support";
+import { api, support } from "./support";
 import { IApiBaseEpisode } from "@/types/episode";
 
 const episode = () => {
-  const { api, apiUrl } = support();
+  const { apiUrl } = support();
 
   const url = {
     episode: apiUrl.episode,
