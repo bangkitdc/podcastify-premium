@@ -21,7 +21,12 @@ const support = () => {
     self: '/self',
   };
 
-  return { api, apiUrl };
+  return { apiUrl };
 };
 
-export default support;
+export type APIType = typeof api;
+
+export {
+  api, 
+  support
+};

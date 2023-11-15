@@ -1,8 +1,7 @@
 import apiBase from "@/api";
-import support from "@/api/support";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "@/contexts";
+import { AuthContext, useAPI } from "@/contexts";
 import { IApiBaseUserSelf } from "@/types/user";
 
 interface AuthProviderProps {
@@ -10,11 +9,9 @@ interface AuthProviderProps {
 }
 
 export default function AuthProvider({ children }: AuthProviderProps) {
-  const { api } = support();
-
   const navigate = useNavigate();
   
-  const [token, setToken] = useState<string | null>(null);
+  const { token, setToken } = useAPI();
   const [user, setUser] = useState<IApiBaseUserSelf | null>(null);
 
   // const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -24,13 +21,11 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     password: string
   ) => {
     const res = await apiBase().auth().login(username, password);
-
     if (res.status === 'success') {
       // Set token to header
-      api.defaults.headers['Authorization'] = `Bearer ${res.data?.token}`;
-      setToken(res.data?.token);
+      setToken(res.data.token);
       setUser(res.data.user);
-      // navigate("/");
+      navigate("/");
     }
 
     return res;
@@ -54,7 +49,6 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     const res = await apiBase().auth().refreshToken();
 
     if (res.status === "success") {
-      api.defaults.headers["Authorization"] = `Bearer ${res.data?.token}`;
       setToken(res.data.token);
       // setIsLoading(false);
 
@@ -78,7 +72,6 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     const res = await apiBase().auth().logout();
 
     if (res.status === "success") {
-      delete api.defaults.headers["Authorization"];
       setToken(null);
       setUser(null);
       navigate("/login");
@@ -105,10 +98,6 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
     fetchRefreshToken();
   }, []);
-
-  // if (isLoading) {
-  //   return <div></div>
-  // }
 
   return (
     <AuthContext.Provider

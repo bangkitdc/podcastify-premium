@@ -39,7 +39,7 @@ export default function ListEpisode() {
         setCategories(categoryData.data);
         setCurrentEpisodes(episodesData.data);
       } catch (error) {
-        console.error(error);
+        apiBaseError.set(error);
       }
     };
     fetchData();
@@ -72,7 +72,7 @@ export default function ListEpisode() {
           ?.name ?? '',
       );
     } catch (error) {
-      console.error(error);
+      apiBaseError.set(error);
     }
 
     dispatch(show(modalManage.current));

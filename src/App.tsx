@@ -1,10 +1,11 @@
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import support from "@/api/support.ts";
+// import support from "@/api/support.ts";
 import { useAuth } from "./contexts/index.ts";
-import { jwtDecode } from "jwt-decode";
+// import { jwtDecode } from "jwt-decode";
 import ProtectedRoute from "./ProtectedRoute.tsx";
 import { useEffect, lazy, Suspense } from "react";
 import Loading from "@/components/shares/loadings/Primary.tsx";
+// import axios from "axios";
 
 function delay<T>(promise: Promise<T>): Promise<T> {
   return new Promise<T>((resolve) => {
@@ -21,33 +22,7 @@ const Login = lazy(() => delay(import("@/pages/Login")));
 const Register = lazy(() => delay(import("@/pages/Register")));
 
 function App() {
-  const { user, token, refreshToken } = useAuth();
-  const { api } = support();
-
-  api.interceptors.request.use(
-    async (config) => {
-      const accessToken = token;
-
-      if (accessToken) {
-        const { exp } = jwtDecode(accessToken);
-        if (exp && exp * 1000 < Date.now()) {
-          // Access token is expired, refresh it
-          try {
-            await refreshToken();
-          } catch (error) {
-            console.error("Token refresh failed:", error);
-          }
-        } else {
-          config.headers.Authorization = `Bearer ${accessToken}`;
-        }
-      }
-
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
+  const { user } = useAuth();
 
   const isAuth = user ? true : false;
   const isAdmin = user?.role_id === 1;
