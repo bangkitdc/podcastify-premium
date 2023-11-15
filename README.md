@@ -54,6 +54,17 @@ Podcastify Premium is a Podcastify that made for premium creators. Podcastify Pr
 6. Ensure that the Docker Daemon is running
 
 ## Tasking
+| 13521055                                   | 13521072                         | 13521102                            |
+| :----------------------------------------- | :------------------------------- | :---------------------------------  |
+| Setup Docker, API templates, and Structure | Episode List Page                | Admin Pending Subcription Page      |
+| Modals                                     | Create Episode Page              | Creator List of Subscribers Page    |
+| Notifications                              | Comment List                     | Subcription Manager API Integration |
+| Lazy Loading                               | Sidebar UI                       |                                     |
+| Authentication & Authorization Page and API Integration             | Topbar UI                        |                                     |
+|                                            | Custom Hooks                     |                                     |
+|                                            | Base Components                  |                                     |
+|                                            | Episode CRUD and API Integration |                                     |
+|                                            | Category API Integration         |                                     |
 
 ## Copyright
 2023 © Podcastify. All Rights Reserved.
