@@ -20,7 +20,7 @@ function TablesData({
     }
   };
   return (
-    <>
+    <tbody>
       <tr
         className={` group hover:bg-clr-background-highlight-two ${
           onNavigate ? " cursor-pointer" : ""
@@ -29,26 +29,22 @@ function TablesData({
       >
         {dataContent.map((d, index) => {
           return (
-            <>
-              <td className={colsClass ? colsClass[index] : ''} key={dataContext[index]}>
-                <p className=" group-hover:text-clr-text-primary font-thin">
+              <td className={colsClass ? colsClass[index] + ' group-hover:text-clr-text-primary font-thin ' : ''} key={dataContext[index]}>
                   {d}
-                </p>
               </td>
-            </>
           );
         })}
         {onClickManage ? (
-          <td className="flex gap-2 relative">
+          <td className="flex justify-center items-center">
             <img
-              className=" h-5 w-5 hidden group-hover:block cursor-pointer"
+              className=" max-h-5 max-w-5 hidden group-hover:block cursor-pointer max-ipad:block"
               src={ICONS_DIR + "three-dots.svg"}
               onClick={handleClickManage}
             />
           </td>
         ) : null}
       </tr>
-    </>
+    </tbody>
   );
 }
 

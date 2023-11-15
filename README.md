@@ -1,27 +1,70 @@
-# React + TypeScript + Vite
+# Podcastify Premium
+Podcastify Premium is a Podcastify that made for premium creators. Podcastify Premium allow premium creators to manage their premium episodes and a place for admin to accept or reject user's subcription to premium creators.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Screenshots
+<img src="readme/register1.png">
+<img src="readme/register2.png">
+<img src="readme/login.png">
+<img src="readme/episodelist.png">
+<img src="readme/editepisode.png">
+<img src="readme/episodedetail.png">
+<img src="readme/createepisode.png">
+<img src="readme/subscriberlist1.png">
+<img src="readme/subscriberlist2.png">
+<img src="readme/subscriberlist3.png">
+<img src="readme/loading.png">
 
-Currently, two official plugins are available:
+## User Functionality 
+### Creator
+1. See premium episodes by the creator
+2. Create, update, and delete premium episodes
+3. See subcribers
+4. Register
+5. Login and logout
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Admin
+1. See pending subscriptions from Podcastify user
+2. Accept pending subscriptions from Podcastify user
+3. Reject pending subscriptions from Podcastify user
+4. Login and logout
 
-## Expanding the ESLint configuration
+## Tech Stacks  
+1. Docker
+2. ReactJS (TypeScript)
+3. Tailwind CSS
+4. Vite
+5. Axios
+6. Redux
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+## How to Get Started
+1. Clone this repository
+2. Copy the `.env.example` file and rename it to `.env`:
+```bash
+    cp .env.example .env
 ```
+3. Open the `.env` file and replace the placeholder values with your actual data.
+4. On the root of this project, run the following commands:
+```bash
+    docker-compose up -d --build
+```
+5. To shut down the app, run
+```bash
+    docker-compose down
+```
+6. Ensure that the Docker Daemon is running
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Tasking
+| 13521055                                   | 13521072                         | 13521102                            |
+| :----------------------------------------- | :------------------------------- | :---------------------------------  |
+| Setup Docker, API templates, and Structure | Episode List Page                | Admin Pending Subcription Page      |
+| Modals                                     | Create Episode Page              | Creator List of Subscribers Page    |
+| Notifications                              | Comment List                     | Subcription Manager API Integration |
+| Lazy Loading                               | Sidebar UI                       |                                     |
+| Authentication & Authorization Page and API Integration             | Topbar UI                        |                                     |
+|                                            | Custom Hooks                     |                                     |
+|                                            | Base Components                  |                                     |
+|                                            | Episode CRUD and API Integration |                                     |
+|                                            | Category API Integration         |                                     |
+
+## Copyright
+2023 © Podcastify. All Rights Reserved.

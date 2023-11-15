@@ -6,13 +6,11 @@ import { useState, useEffect } from 'react';
 import TablesHeader from '@/components/shares/tables/TablesHeader';
 import TablesData from '@/components/shares/tables/TablesData';
 import apiBase from '@/api';
-import { useAuth } from '@/contexts';
 
 export default function SubscriberList() {
   const [subscriptions, setSubscriptions] = useState<IApiBaseSubscription[]>(
     [],
   );
-  const { user } = useAuth();
 
   // tables data
   const headers = ['Subscriber ID', 'Subscriber Name', 'Subscription Time', ''];
@@ -29,17 +27,15 @@ export default function SubscriberList() {
 
   const fetchData = async () => {
     try {
-      if (user && user.user_id) {
-        const subscriptionsData = await apiBase()
-          .subscription()
-          .getSubscribersByCreatorID(user.user_id);
-        setSubscriptions(
-          subscriptionsData.data.filter(
-            (subscription) =>
-              subscription.status === SUBSCRIPTION_STATUS.ACCEPTED,
-          ),
-        );
-      }
+      const subscriptionsData = await apiBase()
+        .subscription()
+        .getAllSubscriptions();
+      setSubscriptions(
+        subscriptionsData.data.filter(
+          (subscription) =>
+            subscription.status === SUBSCRIPTION_STATUS.ACCEPTED,
+        ),
+      );
     } catch (error) {
       console.error(error);
     }

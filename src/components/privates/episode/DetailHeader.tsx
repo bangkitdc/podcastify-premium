@@ -36,7 +36,7 @@ export default function DetailHeader({
           alt=""
         />
       </div>
-      <h1>{title}</h1>
+      <h1 className=" text-center">{title}</h1>
       <p>{likes ?? 0} Likes</p>
       <p>
         {hours

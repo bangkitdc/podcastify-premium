@@ -21,13 +21,6 @@ const subscription = () => {
     return response.data;
   };
 
-  const getSubscribersByCreatorID = async (creatorID: number) => {
-    const response = await api.get<IApiBaseResponse<IApiBaseSubscription[]>>(
-      url.subscription + '?creator_id=' + creatorID,
-    );
-    return response.data;
-  };
-
   const updateSubscriptionStatus = async (payload: ISubscriptionRequest) => {
     const response = await api.patch<IApiBaseResponse<IApiBaseSubscription>>(
       url.subscription,
@@ -39,7 +32,6 @@ const subscription = () => {
 
   return {
     getAllSubscriptions,
-    getSubscribersByCreatorID,
     updateSubscriptionStatus,
   };
 };
