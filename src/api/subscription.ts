@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { IApiBaseResponse } from '@/types/http';
 import { api, support } from './support';
 import {

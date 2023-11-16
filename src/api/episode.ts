@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { IApiBaseResponse } from "@/types/http";
 import { api, support } from "./support";
 import { IApiBaseEpisode } from "@/types/episode";
@@ -33,7 +32,6 @@ const episode = () => {
         responseType: 'arraybuffer',
       }
     );
-    console.log(response.data);
     
     return response
   }

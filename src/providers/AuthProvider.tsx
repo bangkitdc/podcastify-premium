@@ -11,10 +11,8 @@ interface AuthProviderProps {
 export default function AuthProvider({ children }: AuthProviderProps) {
   const navigate = useNavigate();
   
-  const { token, setToken } = useAPI();
+  const { setToken } = useAPI();
   const [user, setUser] = useState<IApiBaseUserSelf | null>(null);
-
-  // const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const login = async (
     username: string, 
@@ -103,7 +101,6 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     <AuthContext.Provider
       value={{
         user,
-        token: token,
         login,
         register,
         refreshToken,
@@ -113,5 +110,5 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     >
       {children}
     </AuthContext.Provider>
-  )
+  );
 }

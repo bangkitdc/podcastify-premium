@@ -26,7 +26,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAdmin, currentUrl, ch
   useEffect(() => {
     window.addEventListener('resize', () => {
       setIsLtMd(window.innerWidth < 1024);
-    })
+    });
   }, [])
 
   return (

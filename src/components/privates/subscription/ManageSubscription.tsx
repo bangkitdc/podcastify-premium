@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { addModal, close, show } from '@/redux/modals/reducer';
 import { useRef, useState, useEffect } from 'react';
 import PrimaryModal from '@/components/shares/modals/Primary';
+import { addNotification } from '@/redux/notifications/reducer';
 import TablesHeader from '@/components/shares/tables/TablesHeader';
 import TablesData from '@/components/shares/tables/TablesData';
 import apiBase from '@/api';
@@ -57,9 +58,21 @@ export default function ManageSubscription() {
           status: SUBSCRIPTION_STATUS.REJECTED,
         });
         fetchData();
+        dispatch(
+          addNotification({
+            message: "Successfully updated a subscription",
+            type: 'success',
+          }),
+        );
       }
     } catch (error) {
       console.error(error);
+      dispatch(
+        addNotification({
+          message: "Failed to update a subscription",
+          type: 'danger',
+        }),
+      );
     }
 
     onCancel();
@@ -75,9 +88,21 @@ export default function ManageSubscription() {
           status: SUBSCRIPTION_STATUS.ACCEPTED,
         });
         fetchData();
+        dispatch(
+          addNotification({
+            message: "Successfully updated a subscription",
+            type: 'success',
+          }),
+        );
       }
     } catch (error) {
       console.error(error);
+      dispatch(
+        addNotification({
+          message: "Failed to update a subscription",
+          type: 'danger',
+        }),
+      );
     }
     onCancel();
   };

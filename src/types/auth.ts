@@ -12,7 +12,6 @@ export type IApiBaseAuthRegister = {
 
 export type IApiBaseAuthContext = {
   user: IApiBaseUserSelf | null
-  token: string | null
 
   login: (
     username: string, 

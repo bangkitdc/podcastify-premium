@@ -12,9 +12,7 @@ export default function BaseSelect({
   id: string;
   value: string,
   setValue: (event: ChangeEvent<HTMLSelectElement>) => void;
-}) {
-  console.log(value);
-  
+}) {  
   return (
     <div className="flex relative w-fit flex-col">
       <label className="text-sm" htmlFor={id}>

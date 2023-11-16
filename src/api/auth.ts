@@ -1,15 +1,11 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { IApiBaseAuthLogin, IApiBaseAuthRegister } from '@/types/auth';
 import { 
   api, 
   support } from './support';
 import { IApiBaseResponse } from '@/types/http';
-// import { useAPI } from '@/contexts';
 
 const auth = () => {
   const { apiUrl } = support();
-
-  // const { api } = useAPI();
 
   const url = {
     login: apiUrl.login,

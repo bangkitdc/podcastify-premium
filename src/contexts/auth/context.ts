@@ -4,7 +4,6 @@ import { createContext, useContext } from "react";
 
 const context = createContext<IApiBaseAuthContext>({
   user: null,
-  token: null,
 
   login: async () => {
     // Simulate a login response (you should make an API call here)
