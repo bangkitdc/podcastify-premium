@@ -13,6 +13,7 @@ import { FormEvent, useEffect, useState } from 'react';
 import BaseSelect from '@/components/shares/inputs/BaseSelect';
 import { IApiBaseCategory } from '@/types/category';
 import useImageFile from '@/hooks/useImageFile';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateFormEpisode() {
   const [title, setTitle] = useInput('');
@@ -24,6 +25,7 @@ export default function CreateFormEpisode() {
 
   const apiBaseError = apiBase().error<IApiBaseError>();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategory = async () => {
@@ -91,6 +93,7 @@ export default function CreateFormEpisode() {
             type: 'success',
           }),
         );
+        navigate('/');
       }
     } catch (error) {
       apiBaseError.set(error);

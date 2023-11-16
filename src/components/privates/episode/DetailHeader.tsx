@@ -13,19 +13,21 @@ export default function DetailHeader({
   duration: number;
   description: string;
 }) {
-  const minutesToHoursAndMinutes = (
-    minutes: number
+  const secondsToHoursMinutesAndSeconds = (
+    seconds: number
   ): {
     hours: number;
     minutes: number;
+    seconds: number;
   } => {
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
+    const hours = Math.floor(seconds / 3600);
+    const remainingMinutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+  
+    return { hours, minutes: remainingMinutes, seconds: remainingSeconds };
+  };  
 
-    return { hours, minutes: remainingMinutes };
-  };
-
-  const { hours, minutes } = minutesToHoursAndMinutes(duration);
+  const { hours, minutes, seconds } = secondsToHoursMinutesAndSeconds(duration);
 
   return (
     <div className="flex flex-col items-center gap-3">
@@ -40,8 +42,8 @@ export default function DetailHeader({
       <p>{likes ?? 0} Likes</p>
       <p>
         {hours
-          ? hours + " Hours " + minutes + " Minutes"
-          : minutes + " Minutes"}
+          ? hours + " Hours " + minutes + " Minutes " + seconds + " Seconds"
+          : (minutes ? minutes + " Minutes " + seconds + " Seconds" : seconds + " Seconds")}
       </p>
       <p className=" text-center text-clr-text-primary-darken">{description}</p>
     </div>
