@@ -174,7 +174,6 @@ export default function ListEpisode() {
           }),
         );
       }
-      console.log(currentEpisodes);
     } catch (error) {
       apiBaseError.set(error);
 

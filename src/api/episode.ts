@@ -32,7 +32,6 @@ const episode = () => {
         responseType: 'arraybuffer',
       }
     );
-    console.log(response.data);
     
     return response
   }
