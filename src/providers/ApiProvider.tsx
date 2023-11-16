@@ -30,6 +30,7 @@ export default function APIProvider({ children }: APIProviderProps) {
     },
     async (error) => {
       const originalRequest = error.config;
+
       if (error.response.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
 
@@ -38,11 +39,14 @@ export default function APIProvider({ children }: APIProviderProps) {
 
           if (res.status === 'success') {
             setToken(res.data?.token);
+          } else {
+            return Promise.reject(error);
           }
           return api(originalRequest);
         } catch (error) {
           return Promise.reject(error);
         }
+
       }
       return Promise.reject(error);
     },
@@ -59,7 +63,6 @@ export default function APIProvider({ children }: APIProviderProps) {
   return (
     <APIContext.Provider
       value={{
-        api: api,
         token:
           api.defaults.headers.common['Authorization']?.toString() ||
           null,

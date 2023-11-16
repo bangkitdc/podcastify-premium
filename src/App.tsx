@@ -1,11 +1,10 @@
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-// import support from "@/api/support.ts";
 import { useAuth } from "./contexts/index.ts";
-// import { jwtDecode } from "jwt-decode";
 import ProtectedRoute from "./ProtectedRoute.tsx";
 import { useEffect, lazy, Suspense } from "react";
 import Loading from "@/components/shares/loadings/Primary.tsx";
-// import axios from "axios";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 function delay<T>(promise: Promise<T>): Promise<T> {
   return new Promise<T>((resolve) => {
@@ -33,6 +32,20 @@ function App() {
   useEffect(() => {
     if (isAuth && (currentUrl === "/login" || currentUrl === "/register")) {
       navigate("/");
+    }
+
+    const jid = Cookies.get('jid');
+
+    if (!jid) {
+      navigate('/login');
+      return;
+    } else {
+      const { exp } = jwtDecode(jid);
+
+      if (exp && exp * 1000 < Date.now()) {
+        navigate('/login');
+        return;
+      }
     }
   }, [isAuth, currentUrl, navigate]);
 

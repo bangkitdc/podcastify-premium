@@ -53,9 +53,6 @@ export default function ListEpisode() {
   const modalManage = useRef('modalManage');
   dispatch(addModal(modalManage.current));
 
-  // const modalDelete = useRef("modalDelete");
-  // dispatch(addModal(modalDelete.current));
-
   const handleOpenModal = async (episode_id?: string) => {
     apiBaseError.clear();
     try {
