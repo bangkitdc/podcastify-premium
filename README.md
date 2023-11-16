@@ -68,5 +68,8 @@ Podcastify Premium is a Podcastify that made for premium creators. Podcastify Pr
 |                                            | Episode CRUD and API Integration |                                     |
 |                                            | Category API Integration         |                                     |
 
+## OWASP
+[OWASP Details](OWASP.md)
+
 ## Copyright
 2023 © Podcastify. All Rights Reserved.
