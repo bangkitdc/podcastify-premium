@@ -8,7 +8,9 @@ Podcastify Premium is a Podcastify that made for premium creators. Podcastify Pr
 <img src="readme/episodelist.png">
 <img src="readme/editepisode.png">
 <img src="readme/episodedetail.png">
+<img src="readme/commentlike.png">
 <img src="readme/createepisode.png">
+<img src="readme/subscriberlist4.png">
 <img src="readme/subscriberlist1.png">
 <img src="readme/subscriberlist2.png">
 <img src="readme/subscriberlist3.png">
