@@ -6,7 +6,7 @@ export default function CommentList({
 }: {
   comments: IEpisodeCommentLessData[] | undefined;
 }) {
-  if (comments) {
+  if (comments && comments?.length > 0) {
     return (
       <>
         {comments.map((comment, index) => (
